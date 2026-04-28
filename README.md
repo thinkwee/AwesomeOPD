@@ -18,7 +18,7 @@
 <br>
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-11-D89F7B?style=for-the-badge)
 ![Frameworks](https://img.shields.io/badge/Frameworks-10-FA5A4C?style=for-the-badge)
-![Industrial](https://img.shields.io/badge/Production_Reports-7-ffc884?style=for-the-badge)
+![Industrial](https://img.shields.io/badge/Production_Reports-8-ffc884?style=for-the-badge)
 
 </div>
 
@@ -469,6 +469,7 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 | [GLM-5](https://github.com/zai-org/GLM-5) | <img src="https://img.shields.io/github/stars/zai-org/GLM-5?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | Zhipu / Z.ai | [arXiv 2602.15763](https://arxiv.org/abs/2602.15763) | **GLM-5** (cross-stage OPD) |
 | [MiMo-V2-Flash](https://github.com/XiaomiMiMo/MiMo-V2-Flash) | <img src="https://img.shields.io/github/stars/XiaomiMiMo/MiMo-V2-Flash?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.01 | Xiaomi | [arXiv 2601.02780](https://arxiv.org/abs/2601.02780) | **MiMo-V2-Flash** (MOPD) |
 | [Nemotron Cascade 2](https://arxiv.org/abs/2603.19220) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.19220) | 2026.03 | NVIDIA | [arXiv 2603.19220](https://arxiv.org/abs/2603.19220) · [HF Collection](https://huggingface.co/collections/nvidia/nemotron-cascade-2) · [project](https://research.nvidia.com/labs/nemotron/nemotron-cascade-2/) | **Nemotron Cascade 2** (multi-domain OPD; "we sample y∼π_inf(·\|x)"); HF-only release |
+| [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf) | 2026.04 | DeepSeek-AI | [Tech Report](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf) · [V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) · [V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | **DeepSeek-V4** (multi-teacher OPD replaces unified mixed-RL stage) |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -482,6 +483,7 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 | GLM-4.5 / 4.6 | Multi-stage post-training | Expert iteration; SFT distillation merges experts into hybrid generalist | Predecessors of GLM-5. |
 | **MiMo-V2-Flash** | Post-training | **Multi-Teacher On-Policy Distillation (MOPD)** — "the student model samples from its own evolving distribution and receives token-level supervision from domain-specific teachers" | Multi-teacher OPD; per-token MOPD advantage formula. |
 | **Nemotron Cascade 2** | Between Cascade RL stages | Multi-Domain On-Policy Distillation (MOPD) — "we sample y∼π_inf(·|x)"; teacher provides token-level distillation advantage | Sample-efficient: matches RL in 30–160 steps vs 1000+. |
+| **DeepSeek-V4** | Post-training (replaces unified mixed-RL stage) | Multi-teacher OPD: domain specialists trained independently (SFT + GRPO per domain — math, code, agent, IF), then a unified student optimises reverse-KL against the specialist set on its own rollouts | Full-vocabulary KL (not token-level estimate) stabilises gradients when specialists disagree; first DeepSeek release where OPD replaces the RL consolidation stage from V3 / R1. V4-Pro 1.6T MoE; V4-Flash 284B. |
 
 </details>
 
