@@ -5,7 +5,7 @@
 <div align="center">
 
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-7-4E6813?style=for-the-badge)
-![White-Box](https://img.shields.io/badge/White--Box_OPD-16-BFA2DB?style=for-the-badge)
+![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
 <br>
 ![OPSD](https://img.shields.io/badge/OPSD-9-A259FF?style=for-the-badge)
@@ -109,6 +109,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | [OPSD_OnPolicyDistillation](https://github.com/HJSang/OPSD_OnPolicyDistillation) | <img src="https://img.shields.io/github/stars/HJSang/OPSD_OnPolicyDistillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Meta / LinkedIn | [arXiv 2604.14084](https://arxiv.org/abs/2604.14084) | TIP — Token Importance, shares LinkedIn OPSD repo with PACED |
 | [SCOPE](https://github.com/machine981/SCOPE) | <img src="https://img.shields.io/github/stars/machine981/SCOPE?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | USTC / Meituan / Fudan | [arXiv 2604.10688](https://arxiv.org/abs/2604.10688) | SCOPE — signal-calibrated dual-path |
 | [TSD-KD](https://github.com/kmswin1/TSD-KD) | <img src="https://img.shields.io/github/stars/kmswin1/TSD-KD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Korea Univ. | [arXiv 2603.13260](https://arxiv.org/abs/2603.13260) | TSD-KD — token-selective dual KD (ICLR 2026) |
+| [Hybrid-Policy-Distillation](https://github.com/zwhong714/Hybrid-Policy-Distillation) | <img src="https://img.shields.io/github/stars/zwhong714/Hybrid-Policy-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | zwhong714 | [arXiv 2604.20244](https://arxiv.org/abs/2604.20244) | HPD — Hybrid Policy Distillation; LlamaFactory + verl backends |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -131,6 +132,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | TIP | Top-50% high-entropy student tokens carry the OPD signal | Student (selected) | Token (filtered) | Reasoning | ~47% memory savings; only entropy-high student tokens trained. |
 | SCOPE | Teacher-PPL-weighted KL on incorrect rollouts; student-PPL-weighted MLE on correct | Student | Token | Reasoning | Signal-Calibrated OPD with Dual-Path Adaptive Weighting; verifier-routing. |
 | TSD-KD | Indirect (student-propose / teacher re-rank) + direct selective logit KD | Mixed | Token (selected) | General | Hybrid; partial OPD + partial preference. |
+| HPD | Reweighted log-likelihood unifying FKL + RKL | Mixed (off-policy + lightweight approximate on-policy sampling) | Token | General | Unifies KD as token-level reweighted likelihood; lightweight on-policy sampling preserves training efficiency. |
 
 </details>
 
