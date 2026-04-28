@@ -17,7 +17,7 @@
 ![Agent](https://img.shields.io/badge/Agent_&_Embodied-4-1F4CAD?style=for-the-badge)
 <br>
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-11-D89F7B?style=for-the-badge)
-![Frameworks](https://img.shields.io/badge/Frameworks-10-FA5A4C?style=for-the-badge)
+![Frameworks](https://img.shields.io/badge/Frameworks-11-FA5A4C?style=for-the-badge)
 ![Industrial](https://img.shields.io/badge/Production_Reports-8-ffc884?style=for-the-badge)
 
 </div>
@@ -428,6 +428,7 @@ Open-source frameworks / libraries that support OPD (with student-generated roll
 | [RL](https://github.com/NVIDIA-NeMo/RL) | <img src="https://img.shields.io/github/stars/NVIDIA-NeMo/RL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.01 | NVIDIA | `nemo_rl/algorithms/distillation.py` | NeMo-RL — native OPD with student rollouts |
 | [SkyRL](https://github.com/NovaSky-AI/SkyRL) | <img src="https://img.shields.io/github/stars/NovaSky-AI/SkyRL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.04 | UC Berkeley NovaSky | `skyrl-train/examples/on_policy_distillation/`; [blog](https://novasky-ai.notion.site/on-policy-distillation) | SkyRL |
 | [slime](https://github.com/THUDM/slime) | <img src="https://img.shields.io/github/stars/THUDM/slime?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.06 | Tsinghua THUDM | `examples/on_policy_distillation/` | slime — RL framework behind GLM-4.5/4.6/4.7 |
+| [KDFlow](https://github.com/songmzhang/KDFlow) | <img src="https://img.shields.io/github/stars/songmzhang/KDFlow?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | BJTU (Songming Zhang et al.) | `examples/on_policy_kd/` (LLM + Qwen3-VL); [arXiv 2603.01875](https://arxiv.org/abs/2603.01875) | KDFlow — **KD-first framework**; SGLang teacher + FSDP2 student decoupled; cross-tokenizer & VLM native |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -444,6 +445,7 @@ Open-source frameworks / libraries that support OPD (with student-generated roll
 | NeMo-RL | FKL / RKL / mixed (configurable `kl_type`) | OPD documented | PyTorch | Yes (Ray + Megatron + vLLM) | Replaces archived NeMo-Aligner. |
 | SkyRL | Reverse KL + importance sampling | OPD added Nov 2025 (PR #585) | PyTorch | Yes (Ray + vLLM/SGLang) | Notion blog "On-Policy Distillation in SkyRL". |
 | slime | Reverse KL token-level | OPD as additive penalty on any advantage estimator | PyTorch + Megatron | Yes (SGLang teacher mode) | Behind GLM-4.5/4.6/4.7. |
+| KDFlow | FKL / RKL / JSD / AKL + Skewed-KL/RKL variants | **Yes — KD-first** | PyTorch | Yes (Ray + SGLang teacher + FSDP2 student) | Decoupled backends; transmits teacher *hidden states* (zero-copy) and recomputes logits on student to cut comm cost; 1.44–6.36× speedup over homogeneous-backend baselines. Native cross-tokenizer; VLM support (Qwen3-VL). Colocate mode shares GPUs via SGLang sleep/wakeup. |
 
 **Excluded** (no native OPD support, or distillation pipeline is offline / fixed-corpus rather than student-rollout): axolotl, OpenRLHF, allenai/open-instruct, prime-rl, TextBrewer (pre-LLM era), open-r1 (off-policy SFT + GRPO), Modelopt, Tunix v0.1.6, DistillKit, easydistill.
 
