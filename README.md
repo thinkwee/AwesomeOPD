@@ -7,14 +7,15 @@
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-7-4E6813?style=for-the-badge)
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-16-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
-![OPSD](https://img.shields.io/badge/OPSD-9-A259FF?style=for-the-badge)
 <br>
+![OPSD](https://img.shields.io/badge/OPSD-9-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-17-9B59B6?style=for-the-badge)
+<br>
 ![Reasoning](https://img.shields.io/badge/Reasoning_OPD-3-FF69B4?style=for-the-badge)
 ![Multimodal](https://img.shields.io/badge/Multimodal_OPD-5-2ECC71?style=for-the-badge)
-<br>
 ![Agent](https://img.shields.io/badge/Agent_&_Embodied-4-1F4CAD?style=for-the-badge)
+<br>
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-11-D89F7B?style=for-the-badge)
 ![Frameworks](https://img.shields.io/badge/Frameworks-10-FA5A4C?style=for-the-badge)
 ![Industrial](https://img.shields.io/badge/Production_Reports-7-ffc884?style=for-the-badge)
