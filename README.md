@@ -500,7 +500,7 @@ Opinionated reading order for someone starting an OPD project today.
 | # | Why it's the pick | Resource |
 |---|---|---|
 | 1 | Clearest one-page explanation of why OPD beats both SFT and RL on token efficiency. | [Thinking Machines Lab blog (Oct 2025)](https://thinkingmachines.ai/blog/on-policy-distillation/) |
-| 2 | The production recipe everyone is now copying. Read §3.4. | [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) |
+| 2 | The production recipe everyone is now copying. Read §4. | [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) |
 | 3 | Reproducible OPD in <200 lines on a real training stack. | [tinker-cookbook recipes/distillation](https://github.com/thinking-machines-lab/tinker-cookbook/tree/main/tinker_cookbook/recipes/distillation) |
 | 4 | "Theory of OPD" — when it works, when it fails. | [THUNLP Rethinking OPD (2604.13016)](https://arxiv.org/abs/2604.13016) |
 | 5 | The paper that named OPSD and established the privileged-context pattern. | [Self-Distilled Reasoner (2601.18734)](https://arxiv.org/abs/2601.18734) |
@@ -515,10 +515,3 @@ Opinionated reading order for someone starting an OPD project today.
 ## 🤝 Contributing
 
 PRs are very welcome. When adding an entry, please attempt to fill the technical-details columns (loss / divergence, data source, teacher access, granularity). If you cannot determine these by reading the paper or repo, leave a `?` — that's still useful.
-
-Particularly looking for:
- - Strictly on-policy pretraining-time distillation
- - Robotics / VLA OPD
- - Speech / TTS OPD beyond X-OPD
- - Non-English production reports (DingTalk Math, Doubao, ERNIE 4.5, …)
- - Industrial OPD failure-mode analyses
