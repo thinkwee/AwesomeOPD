@@ -7,7 +7,7 @@
 <div align="center">
 
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-7-4E6813?style=for-the-badge)
-![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
+![White-Box](https://img.shields.io/badge/White--Box_OPD-16-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
 ![OPSD](https://img.shields.io/badge/OPSD_Q1=B-9-A259FF?style=for-the-badge)
 <br>
@@ -20,212 +20,36 @@
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-19-D89F7B?style=for-the-badge)
 ![Frameworks](https://img.shields.io/badge/Frameworks-14-FA5A4C?style=for-the-badge)
 ![Industrial](https://img.shields.io/badge/Production_Reports-11-ffc884?style=for-the-badge)
-<br>
 ![Off-Policy KD](https://img.shields.io/badge/Off--Policy_KD_Refs-58-007a88?style=for-the-badge)
-![Verified](https://img.shields.io/badge/Verified_Apr_2026-✓-success?style=for-the-badge)
 
 </div>
 
 # When LLMs Distill On-Policy
 
-**AwesomeOPD** is a curated awesome-list of **open-source repositories and papers** for training LLMs (and VLMs / agents / draft models) with **On-Policy Distillation (OPD)** and **On-Policy Self-Distillation (OPSD)**.
+**AwesomeOPD** is an awesome list summarising **open-source repositories and papers** for training LLMs (and VLMs / agents / draft models) with **On-Policy Distillation (OPD)** and **On-Policy Self-Distillation (OPSD)**:
+ - 🎯 **OPD = C1 + C2.** `C1`: student samples its own trajectories `y ~ π_student(·|x)` during training. `C2`: teacher provides per-token / sequence supervision on those student samples. Methods that only partially satisfy are flagged in **📝 Strictness notes** per section.
+ - 🪞 **OPSD** = special case where teacher *is the same model*, conditioned on privileged context (verified trace / answer / "be concise" prefix / longer context) or an earlier checkpoint.
+ - 🚀 Each entry is annotated along **four design questions**: `Q1` teacher source (A external · B same+privilege · C earlier-checkpoint · D multi-teacher · E discriminator), `Q2` supervision signal (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), `Q3` rollout consumption (all / selected / truncated / replaced / as-PG-samples), `Q4` pipeline slot (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
+ - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
+ - 📅 Last updated: 2026-04-28
 
- - 🎯 **OPD definition (strict, two criteria)**:
-   - **C1 (on-policy data)** — during training, the student samples its own trajectories `y ~ π_student(·|x)`.
-   - **C2 (teacher supervision on student samples)** — the teacher provides per-token or per-sequence supervision **evaluated on those student-generated samples** (not on a fixed corpus or teacher-generated data).
-   
-   Both must hold for an entry to be *strict* OPD. Methods that satisfy C1 but not C2 are usually RL (only outcome reward, no teacher distillation). Methods that satisfy C2 but not C1 are off-policy KD. Each section below has a **📝 Strictness notes** block flagging entries that only partially satisfy the criteria — they're kept in the list because the community searches for them under "OPD", but readers should know what they are.
- - 🪞 **OPSD**: a special case of OPD where the teacher *is the same model* — typically the same weights but conditioned on **privileged information** (a verified reasoning trace, ground-truth answer, "be concise" prefix, longer context, document, etc.), or an earlier checkpoint of itself.
- - 🚧 The line between OPD and on-policy RL is intentionally fuzzy: both train on student rollouts. OPD provides **dense per-token supervision** from a teacher; on-policy RL provides a **scalar reward**. Many recent works (G-OPD, RLAD, KDRL, SDPO, HDPO, REOPOLD …) explicitly unify the two — those are listed under **OPD-RL Hybrids**.
- - 🧭 **Editorial framing (this list's contribution)**: we organise the field around [**four design questions**](#taxonomy) (who is the teacher? what signal? how are rollouts consumed? where in the pipeline?), a [**timeline reading**](#a-timeline-lens) of how the wave evolved, a [**practical decision guide**](#practical-decision-guide--which-opd-do-i-reach-for), [**curator's picks**](#-curators-picks--where-to-start), and a list of [**open problems**](#-open-problems--whats-missing). Existing surveys (e.g. [Tencent's 2604.00626](https://arxiv.org/abs/2604.00626)) are used as a *paper pool*; their internal taxonomies are not adopted.
- - ⚠️ This list is built by carefully reading paper PDFs, project pages, and source code. Star counts and pushed-at dates were captured via `gh api` near 2026-04-27. Some 2026 papers cited in surveys do not yet have public code; we mark those `📄 paper-only`. If you spot mistakes please open an issue/PR.
- - 📅 **Last updated**: 2026-04-28
- - 🤗 PRs welcome — especially for OPD work in robotics / speech / pretraining and for non-English production reports.
+Taxonomy:
+ - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
+ - **🔬 White-Box (Q1=A)** — logit-based OPD on student rollouts
+ - **🎭 Black-Box (Q1=A black-box / Q1=E)** — discriminator / verbal / preference, no teacher logits
+ - **♻️ OPSD (Q1=B)** — privileged-context self-distillation
+ - **🔁 Iterative Self-Bootstrapping (Q1=C)** — same model as previous-checkpoint teacher
+ - **🤝 OPD-RL Hybrids** — inside-RL OPD: KL-as-reward, RL+OPD fusion
+ - **🧠 Reasoning / 🖼️ Multimodal / 🤖 Agent & Embodied** — by application; cuts across all Q1
+ - **⚡ Speculative-Decoding Distillation** — drafter distillation; "student" is a draft model
+ - **🛠️ Frameworks & Toolkits** — what to actually run
+ - **🏭 Industrial / Production Reports** — what the labs ship
+ - **📕 Off-Policy KD References** — for context, NOT OPD
 
----
-
-## Why OPD now
-
-Three coincident events made OPD the dominant LLM post-training paradigm of 2025–2026:
-
-1. **Qwen3 Tech Report** (May 2025, [arXiv 2505.09388](https://arxiv.org/abs/2505.09388)) showed that a *strong-to-weak on-policy logit-distillation* leg of post-training matched RL performance on AIME'24 at **~1/10 the GPU hours** of RL. This is the canonical industrial OPD recipe.
-2. **Thinking Machines Lab blog** ([Lu et al., Oct 2025](https://thinkingmachines.ai/blog/on-policy-distillation/)) re-popularised OPD with a one-line recipe: "swap the KL regulariser model in your RL trainer for a stronger teacher model" — and released the [Tinker cookbook](https://github.com/thinking-machines-lab/tinker-cookbook/tree/main/tinker_cookbook/recipes/distillation) with reproducible scripts.
-3. The **DeepSeek-R1 wave** (Jan 2025) trained the field to think of post-training as token-by-token imitation of a stronger reasoner. Most R1-distill releases were *off-policy*; the OPD wave that followed in late-2025/2026 fixed the resulting exposure-bias issues (OPSD, OPCD, GAD, Lightning OPD, Rethinking OPD …).
-
-By Q1 2026 OPD had been adopted across **Qwen3, GLM-5, MiMo-V2-Flash, Gemma 2/3, Nemotron-Cascade-2, Llama 4 Maverick (codistillation)**, and the literature around OPD was large enough to need [a survey of its own](https://arxiv.org/abs/2604.00626).
-
----
-
-## Taxonomy
-
-The whole zoo of OPD methods reduces to **four design questions**. Once you answer them, every paper in this list slots into one cell of a 4D grid. The categories you see below are just the most common combinations.
-
-### Q1 — Who plays the role of the teacher?
-
-The single most informative axis. Every other choice cascades from this one.
-
-| Teacher source | Mechanism | Examples |
-|---|---|---|
-| **A. Larger external model** | Classical compression: a 32B/235B teacher transfers signal to a 1B–14B student. | GKD, MiniLLM, DistiLLM/2, BOND, Qwen3 strong-to-weak, Gemma 2/3, Phi-4-Mini-Reasoning |
-| **B. Same model + privileged context** | Teacher = student weights, but conditioned on a verified trace / answer / "be concise" prefix / longer context / document. The teacher is *yourself with a hint*. | OPSD, OPCD, OEL, π-Distill, GATES, CRISP/OPSDC, OPSDL, GAD-context |
-| **C. Same model, earlier checkpoint** | Iterative self-bootstrapping. The teacher snapshot is frozen for one round, the student trains, then the snapshot rolls forward. | SPIN, BOND iterations, rStar / rStar2-Agent (with PPM filter), iterative RAFT |
-| **D. A panel of specialist teachers** | Multiple domain-specialised teachers; the student aggregates per-domain signals. Production-favoured because it lets you hire the best teacher for each capability. | MiMo-V2-Flash (MOPD), Nemotron-Cascade-2 (multi-domain OPD), GLM-5 cross-stage, Llama 4 codistillation |
-| **E. A discriminator** | Adversarial: a co-trained classifier learns to tell student outputs from teacher outputs and serves as on-policy reward. Indispensable when the teacher is a closed API (no logits). | GAD, Lion |
-| **F. No teacher — only a verifier** | Strictly speaking RL, not distillation. Listed here because *inside-RL* OPD (Q4 row 4) glues verifier-RL onto teacher-KL, and many community releases blur the line. | (Tongyi DeepResearch, Magistral, MiniMax-M2 — flagged in Caveats; not OPD) |
-
-Two notes: (i) the same paper can pick different teachers in different stages — Qwen3 starts with **A** (larger Qwen3) for cold-start and ends with **B** (self with `/think` mode) on the on-policy leg; (ii) **B+C+D are the 2026 frontier** — most genuinely-novel OPD work in the last 12 months pushed one of these three.
-
-### Q2 — What signal does the teacher emit?
-
-This determines what your loss can look like.
-
-| Signal | Per-token? | Requires logit access? | Examples |
-|---|---|---|---|
-| Per-token logits / log-probs | yes | yes (white-box) | GKD, MiniLLM, DistiLLM, OPSD, OPCD, the Qwen3 recipe |
-| Top-k truncated logits | yes | partial | NeMo-Aligner KD, verl async OPD, FastDraft |
-| Sequence-level reward / preference | no | no | BOND, Lion, RLHF-style hybrids |
-| Verbal score (e.g. 0–9) | no | no | OVD |
-| Discriminator real/fake | no | no | GAD |
-| Verifier accept/reject | no | no | RLVR, SCoRe, KDRL outcome leg |
-| Hidden-state / attention map | yes (feature) | yes | DSKD, Tunix attention-strategy, Minitron |
-
-Mixing signals is normal. KDRL pairs token-logit + verifier-reward; SCoRe combines verifier-reward + privileged-trace correction.
-
-### Q3 — How are student rollouts consumed?
-
-| Consumption mode | Mechanism | Examples |
-|---|---|---|
-| All tokens, equally | Standard recipe. | GKD baseline, Qwen3 |
-| Selected tokens (entropy-, error-, or value-gated) | Trains only on the tokens that carry signal; cuts compute and noise. | TIP (top-50% entropy), SelecTKD, AdaKD, Speculative KD (only accepted tokens) |
-| Truncated prefix only | Only the first *k* tokens of each rollout. | Fast OPD, prefix-only OPSD |
-| Replaced / corrected tokens | Teacher overwrites bad student tokens; student trains on the *fixed* sequence. | Speculative Knowledge Distillation, SCoRe (earliest-error correction), HASS (multi-step harmonisation) |
-| As policy gradient samples | Rollout becomes the on-policy data for an RL step; teacher signal becomes the reward / advantage. | SDPO, G-OPD, KDRL, RLAD, REOPOLD |
-
-### Q4 — Where does OPD sit in the post-training pipeline?
-
-| Pipeline slot | What OPD replaces / adds | Examples |
-|---|---|---|
-| Cold-start (replaces SFT) | Skip teacher-trace SFT; cold-start directly with on-policy KD. | Qwen3 strong-to-weak first phase, Phi-4-Mini-Reasoning |
-| Mid-training | Between SFT and RL, refine on student samples. | THUNLP OPD recipe (off-policy SFT → OPD → eval) |
-| RL-replacement | Use OPD instead of RL for the final stage. The Qwen3 / Thinking Machines blog claim: ~1/10 RL cost, equal AIME score. | Qwen3 final stage, Thinking Machines tinker-cookbook recipe |
-| Inside-RL (dense reward) | KL-to-teacher becomes a per-token dense reward shaping inside GRPO/PPO. | KDRL, G-OPD, RLAD, HDPO, SD-Zero |
-| Inter-stage glue | Between RL stages, prevent forgetting / consolidate gains. | GLM-5 cross-stage OPD, Nemotron-Cascade-2 between RL cascades |
-| Post-RL compression | Compress long-CoT into short-CoT without entropy collapse. | CRISP/OPSDC |
-| Continual-learning anchor | Anchor against an earlier checkpoint to prevent drift during fine-tuning. | SDFT (Shenfeld), Apple Memory-Retaining FT |
-
-### A timeline lens
-
-Sorting by Q1 (teacher source), the field's evolution becomes legible. Larger-external-teacher OPD (A) dominated 2023–2024; the field hit a 17-month gap before production adoption (Qwen3, May 2025) because the bottleneck was infrastructure (vLLM/SGLang/veRL) not algorithms. Privileged-context OPSD (B) and multi-teacher OPD (D) exploded between October 2025 and March 2026 — researchers independently discovered "teacher = self with hint" from many angles within a single quarter. RL-native OPD (Q4 row 4) is the live frontier as of April 2026 and is where the next 12 months of research will concentrate.
-
-```
-2023.06   GKD + MiniLLM                       [Q1=A, larger external]   name "OPD"
-2023.10   DistillSpec                         [Q1=A]                    OPD applied to spec decoding
-2024.02   DistiLLM (ICML 2024)                [Q1=A]                    skew-KL, adaptive on/off
-2024.07   Gemma 2 tech report                 [Q1=A]                    first to NAME OPD in a release
-2024.07   BOND                                [Q1=C, iterative]         Best-of-N as target distribution
-2024.10   Speculative KD                      [Q1=A]                    interleaved propose-and-correct
-2025.05   Qwen3 tech report                   [Q1=A → A+B]              industrial proof: OPD ≈ RL @ 1/10 cost
-2025.10   Thinking Machines blog (Lu)         [Q1=A]                    one-line recipe → wave goes mainstream
-2025.11   GAD (Microsoft)                     [Q1=E, discriminator]     OPD without teacher logits
-2026.01   OPSD (Zhao)                         [Q1=B, privileged]        canonical privileged-context OPSD
-2026.01   SDPO (ETH/MIT)                      [Q1=B + RL]               OPD-as-RL-objective
-2026.02   OPCD / π-Distill / GATES            [Q1=B]                    Microsoft B-family explodes
-2026.02   G-OPD / RLAD                        [Q1=A + RL]               OPD = KL-constrained RL formalised
-2026.03   MiMo-V2-Flash                       [Q1=D, multi-teacher]     MOPD in production
-2026.03   Nemotron-Cascade-2 (NVIDIA)         [Q1=D]                    OPD as inter-stage glue
-2026.04   THUNLP Rethinking OPD               [Q1=A diagnostic]         two success conditions
-2026.04   Lightning OPD                       [Q1=A engineering]        offline OPD via teacher consistency
-```
-
-### Practical decision guide — *"which OPD do I reach for?"*
-
-```
-                         Do you have an external model stronger than yours?
-                                       │
-                  ┌────────────── Yes ──┴── No ─────────────┐
-                  │                                          │
-        Can you see its logits?                 Do you have verifiable rewards?
-                  │                                          │
-        ┌── Yes ──┴── No ──┐                       ┌── Yes ──┴── No ──┐
-        │                   │                       │                   │
-   Q1=A white-box      Q1=A black-box           Q1=A/B + RL          Q1=B privileged
-   GKD / MiniLLM /     GAD / Lion /             SDPO / G-OPD /        self-distill
-   Qwen3 recipe /      SuperCorrect /           KDRL / RLAD /         OPSD / OPCD /
-   verl on-policy /    OVD                      HDPO / SD-Zero        SDFT / CRISP
-   slime / SkyRL /
-   tinker-cookbook
-```
-
-Domain refinements layered on top:
-
- - **Reasoning (math/code)** — Q1=A with reverse KL is the safe default (Qwen3 / Thinking Machines recipe). For long-CoT compression specifically, switch to Q1=B (CRISP/OPSDC).
- - **Agent / multi-turn** — Q1=B with a "verified-trajectory" privilege (SCoRe earliest-error correction) or Q4=inside-RL (OpenClaw-RL).
- - **VLM** — VOLD or π-Flow are the only flagship Q1=A VLM-OPD recipes; VL-Rethinker / Vision-R1 / Video-R1 are RL-only "OPD-adjacent".
- - **Production at scale** — Q1=D multi-teacher recipes (MiMo-V2-Flash MOPD, Nemotron-Cascade-2). The "one student, many specialist teachers" pattern is replacing single-teacher recipes in flagship releases.
- - **Inference speedup** — different problem entirely; see the dedicated [Speculative-Decoding Distillation](#-speculative-decoding-distillation) section.
-
-### Awesome-list categories (what each section below contains)
-
-The sections below are sorted by Q1 first, then by application:
-
- - **Surveys, Foundations & Position Papers** — meta-references and the canonical algorithm seeds.
- - **OPD with Larger External Teachers — White-Box** — Q1=A, white-box logits.
- - **OPD with Larger External Teachers — Black-Box / Outcome-Based** — Q1=A or E, black-box.
- - **Self-Distillation with Privileged Context (OPSD)** — Q1=B.
- - **Multi-Teacher / Iterative Self-Distillation** — Q1=C and D.
- - **OPD-RL Hybrids** — Q4=inside-RL, regardless of Q1.
- - **By application — Reasoning / Multimodal / Agent** — cuts across all of Q1.
- - **Speculative-Decoding Distillation** — a parallel universe where the "student" is a draft model and the goal is inference speedup.
- - **Frameworks & Toolkits** — what to actually run.
- - **Industrial / Production Model Reports** — what the labs ship.
- - **Off-Policy KD References** — context only; *not* OPD.
-
-Shorthand used inside technical details:
- - **FKL** = forward KL (teacher‖student, mode-covering); **RKL** = reverse KL (student‖teacher, mode-seeking); **JSD** / **GJSD** = (generalised) Jensen–Shannon; **Skew-KL** / **AKL** = adaptive / skewed KL.
- - **Q1**: A = larger external · B = self+privilege · C = self+earlier-checkpoint · D = multi-teacher · E = discriminator.
- - **Pipeline slot**: cold-start · mid · RL-replacement · inside-RL · inter-stage · post-RL compression · continual-anchor.
-
----
+Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Shannon · **Skew-KL** / **AKL** = skewed / adaptive KL · `📄 paper-only` = no public code yet.
 
 ## Updates
- - 📢 **2026-04-28 — Strict-OPD verification pass**: Every entry was rechecked against the strict OPD definition (student samples its own trajectories + teacher provides supervision on those samples). ~50 entries that turned out to be off-policy SFT, pure RL, pretraining-side KD, or train-free were moved to a structured [Off-Policy KD References](#-off-policy-kd-references-for-context) section with sub-buckets, or removed entirely. See [Caveats](#%EF%B8%8F-caveats--works-that-are-not-opd-despite-naming) for the per-entry rationale.
- - 📢 **2026-04-27 — Initial release**: Coverage 2024-04 → 2026-04. Includes the Tencent OPD survey ([arXiv 2604.00626](https://arxiv.org/abs/2604.00626)) and the Tsinghua THUNLP "Rethinking OPD" recipe ([arXiv 2604.13016](https://arxiv.org/abs/2604.13016)). The Thinking Machines Lab blog is the spiritual centre of the wave; Qwen3's tech report is the production reference recipe.
-
----
-
-## 🌟 Curator's Picks — where to start
-
-Opinionated must-reads, not the most-cited or most-starred. If you are starting an OPD project today, read these in order.
-
-| # | Why it's the pick | Resource |
-|---|---|---|
-| 1 | The clearest one-page explanation of why OPD beats both SFT and RL on token efficiency. Skip if you've read it; read first if you haven't. | [Thinking Machines Lab blog (Oct 2025)](https://thinkingmachines.ai/blog/on-policy-distillation/) |
-| 2 | The production recipe everyone is now copying. Read §3.4 of the tech report. | [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) |
-| 3 | Reproducible OPD in <200 lines on a real training stack. | [tinker-cookbook recipes/distillation](https://github.com/thinking-machines-lab/tinker-cookbook/tree/main/tinker_cookbook/recipes/distillation) |
-| 4 | The "theory of OPD" — when it works, when it fails. Two success conditions named. | [THUNLP Rethinking OPD (arXiv 2604.13016)](https://arxiv.org/abs/2604.13016) |
-| 5 | The paper that gave OPSD its name and established the privileged-context pattern (Q1=B). | [Self-Distilled Reasoner / OPSD (arXiv 2601.18734)](https://arxiv.org/abs/2601.18734) |
-| 6 | Crystallises OPD as a special case of KL-constrained RL with reward extrapolation (the cleanest "inside-RL" formulation). | [G-OPD (arXiv 2602.12125)](https://arxiv.org/abs/2602.12125) |
-| 7 | A useful catalogue of 50+ methods to mine for related work — read as an index, not as a taxonomy. | [Tencent OPD Survey (arXiv 2604.00626)](https://arxiv.org/abs/2604.00626) |
-| 8 | The single most diverse open-source OPD trainer collection — `gkd`, `gold`, `minillm`, `sdft`, `self_distillation`, `sdpo` — read the source. | [TRL `experimental/`](https://github.com/huggingface/trl/tree/main/trl/experimental) |
-| 9 | The black-box-OPD seed paper — adversarial discriminator as on-policy reward model. Important if you're distilling from a closed API. | [GAD / Black-Box OPD (arXiv 2511.10643)](https://arxiv.org/abs/2511.10643) |
-| 10 | The empirical failure-modes paper. Saves a week of debugging. | [Revisiting OPD (arXiv 2603.25562)](https://arxiv.org/abs/2603.25562) |
-
----
-
-## 🔭 Open Problems & What's Missing
-
-What this list also tells you, by the gaps it has:
-
-1. **OPD has no large-scale empirical scaling-law study.** Qwen3 reports 1/10 RL cost on AIME at 8B; nobody has plotted OPD compute-vs-quality curves across model scales. The Thinking Machines blog touches this but doesn't sweep it.
-2. **Cross-tokenizer OPD is half-solved.** [DSKD](https://github.com/songmzhang/DSKD), [DSKDv2](https://github.com/songmzhang/DSKDv2), and ULD exist, but none are production-deployed and the dual-space projector approach doesn't cleanly extend to MoE teachers. This will matter the moment someone wants to OPD-distill a Qwen3-235B-A22B teacher into a Llama-class student.
-3. **No public Q1=B production report exists.** Every privileged-context-OPSD paper is research-scale. We're missing the "Qwen3 of OPSD" — a flagship that uses privileged-context self-distillation as its main post-training recipe and reports head-to-head numbers vs. RL.
-4. **Pretraining-time OPD is wide open.** Llama 4's "codistillation" of Maverick from Behemoth is the only public production example. The pretraining-time KD literature ([MiniPLM](https://arxiv.org/abs/2410.17215), [Distilled Pretraining](https://arxiv.org/abs/2509.01649)) is mostly off-policy (data-side) — true student-rollout pretraining-OPD has barely started.
-5. **OPD for non-text modalities is sparse.** [VOLD](https://arxiv.org/abs/2510.23497) (LLM→VLM), [π-Flow](https://github.com/Lakonik/piFlow) (image), [Step-Audio-R1](https://github.com/stepfun-ai/Step-Audio-R1) (audio), [RPD](https://arxiv.org/abs/2503.05833) (VLA), [X-OPD](https://arxiv.org/abs/2603.24596) (speech) are individually strong but there's no unified multimodal OPD framework.
-6. **Evaluation is fragmented.** Half the OPD papers benchmark on AIME'24, half on GSM8K/MATH, a few on HMMT25. No standard "OPD-Bench" exists. The community would benefit from one.
-7. **Theoretical guarantees lag.** OPD inherits the DAGGER-style O(T) regret bound from interactive imitation learning, but the actual divergence choice (FKL vs RKL vs Skew) lacks a clean theoretical preference under realistic teacher–student gaps. [Constrained OPD (CMDP)](https://arxiv.org/abs/2509.22921) and [G-OPD](https://arxiv.org/abs/2602.12125) are first steps; there's a thesis in here.
-8. **Inside-RL OPD unification is in flux.** SDPO, KDRL, RLAD, G-OPD, REOPOLD, SD-Zero, RLSD, HDPO all propose slightly different ways of fusing OPD with RLVR/GRPO/PPO. As of Apr 2026 there's no consensus on the right form. This is where the next 6–12 months of research will concentrate.
-9. **OPD safety/alignment**: black-box OPD can extract aligned behaviour from a closed API, but there's no work on whether OPD-distilled students *inherit* the teacher's alignment properties or just its surface tokens.
-10. **Tooling**: the awesome-list itself reveals that OPD support is *retro-fitted* to most RL frameworks (verl `recipe/`, slime `examples/`, SkyRL PR-as-feature). A purpose-built "OPD-first" framework probably doesn't need to exist, but if someone built one with first-class privileged-context teachers, multi-teacher MOPD scheduling, and inside-RL KL-as-reward fusion, the field would adopt it overnight.
+ - 📢 **2026-04-28 — initial release**
 
 ---
 
@@ -237,7 +61,7 @@ What this list also tells you, by the gaps it has:
 | [tinker-cookbook](https://github.com/thinking-machines-lab/tinker-cookbook) | <img src="https://img.shields.io/github/stars/thinking-machines-lab/tinker-cookbook?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | Thinking Machines Lab | Reference impl. of the OPD recipe on the Tinker SDK |
 | **A Survey of On-Policy Distillation for LLMs** | ![](https://img.shields.io/badge/Survey-paper-845C40?style=for-the-badge) | 2026.04 | Tencent (Mingyang Song & Mao Zheng) | [arXiv 2604.00626](https://arxiv.org/abs/2604.00626) |
 | **Rethinking On-Policy Distillation: Phenomenology, Mechanism & Recipe** | <img src="https://img.shields.io/github/stars/thunlp/OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Tsinghua THUNLP | [arXiv 2604.13016](https://arxiv.org/abs/2604.13016) · [thunlp/OPD](https://github.com/thunlp/OPD) |
-| **Revisiting On-Policy Distillation: Failure Modes & Simple Fixes** | ![](https://img.shields.io/badge/Diagnosis-paper-845C40?style=for-the-badge) | 2026.03 | CASIA (Fu et al.) | [arXiv 2603.25562](https://arxiv.org/abs/2603.25562) |
+| [hhh675597/revisiting_opd](https://github.com/hhh675597/revisiting_opd) (Revisiting OPD: Failure Modes & Simple Fixes) | <img src="https://img.shields.io/github/stars/hhh675597/revisiting_opd?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | CASIA (Fu et al.) | [arXiv 2603.25562](https://arxiv.org/abs/2603.25562) |
 | **Lightning OPD: Efficient Post-Training with Offline OPD** | ![](https://img.shields.io/badge/Recipe-paper-845C40?style=for-the-badge) | 2026.04 | Wu, Han, Cai | [arXiv 2604.13010](https://arxiv.org/abs/2604.13010) |
 | **GKD: On-Policy Distillation of Language Models — Learning from Self-Generated Mistakes** | ![](https://img.shields.io/badge/Seminal-ICLR_2024-4E6813?style=for-the-badge) | 2023.06 | Google DeepMind (Agarwal et al.) | [arXiv 2306.13649](https://arxiv.org/abs/2306.13649) — implemented in [TRL `GKDTrainer`](https://github.com/huggingface/trl/blob/main/trl/experimental/gkd/gkd_trainer.py) |
 
@@ -273,18 +97,17 @@ Methods that turned out to be off-policy / pure-loss-function / pretraining-side
 | [jongwooko/distillm-2](https://github.com/jongwooko/distillm-2) | <img src="https://img.shields.io/github/stars/jongwooko/distillm-2?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | KAIST / Microsoft | [arXiv 2503.07067](https://arxiv.org/abs/2503.07067) (ICML 2025 Oral) |
 | [songmzhang/DSKDv2](https://github.com/songmzhang/DSKDv2) (cross-tokenizer; supports on-policy mode) | <img src="https://img.shields.io/github/stars/songmzhang/DSKDv2?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.04 | BJTU | [arXiv 2504.11426](https://arxiv.org/abs/2504.11426) |
 | [RUCBM/G-OPD](https://github.com/RUCBM/G-OPD) | <img src="https://img.shields.io/github/stars/RUCBM/G-OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | RUC / Tencent | [arXiv 2602.12125](https://arxiv.org/abs/2602.12125) |
-| Speculative KD (interleaved propose-and-correct) | 📄 paper-only | 2024.10 | UCSB / Google | [arXiv 2410.11325](https://arxiv.org/abs/2410.11325) (ICLR 2025) |
+| [google-research/google-research `/speculative_kd`](https://github.com/google-research/google-research/tree/master/speculative_kd) (Speculative KD) | <img src="https://img.shields.io/github/stars/google-research/google-research?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2024.10 | UCSB / Google | [arXiv 2410.11325](https://arxiv.org/abs/2410.11325) (ICLR 2025) |
 | AdaSwitch (on-/off-policy switching) | 📄 paper-only | 2025.10 | RUC / Baidu | [arXiv 2510.07842](https://arxiv.org/abs/2510.07842) |
 | Constrained OPD (CMDP) | 📄 paper-only | 2025.09 | Huawei Noah's Ark | [arXiv 2509.22921](https://arxiv.org/abs/2509.22921) |
-| REOPOLD (Relaxed OPD) | 📄 paper-only | 2026.03 | KAIST / Microsoft | [arXiv 2603.11137](https://arxiv.org/abs/2603.11137) |
-| PACED (frontier curriculum self-distill) | 📄 paper-only | 2026.03 | LinkedIn | [arXiv 2603.11178](https://arxiv.org/abs/2603.11178) |
+| REOPOLD (Relaxed OPD) | 📄 paper-only ("code soon") | 2026.03 | KAIST / Microsoft | [arXiv 2603.11137](https://arxiv.org/abs/2603.11137) |
+| [HJSang/OPSD_OnPolicyDistillation](https://github.com/HJSang/OPSD_OnPolicyDistillation) (PACED — frontier curriculum self-distill) | <img src="https://img.shields.io/github/stars/HJSang/OPSD_OnPolicyDistillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | LinkedIn | [arXiv 2603.11178](https://arxiv.org/abs/2603.11178) |
 | Fast OPD (prefix-truncated) | 📄 paper-only | 2026.02 | Industrial | [arXiv 2602.15260](https://arxiv.org/abs/2602.15260) |
 | Entropy-Aware OPD | 📄 paper-only | 2026.03 | KAIST / IBM | [arXiv 2603.07079](https://arxiv.org/abs/2603.07079) |
 | Veto (Stable OPD) | 📄 paper-only | 2026.01 | SNU | [arXiv 2601.07155](https://arxiv.org/abs/2601.07155) (ACL 2026 Findings) |
-| TIP (Token Importance) | 📄 paper-only | 2026.04 | Meta / LinkedIn | [arXiv 2604.14084](https://arxiv.org/abs/2604.14084) |
-| SCOPE (signal-calibrated dual-path) | 📄 paper-only | 2026.04 | USTC / Meituan / Fudan | [arXiv 2604.10688](https://arxiv.org/abs/2604.10688) |
-| TSD-KD (token-selective dual KD) | 📄 paper-only | 2026.03 | Korea Univ. | [arXiv 2603.13260](https://arxiv.org/abs/2603.13260) (ICLR 2026) |
-| SelecTKD | 📄 paper-only | 2025.10 | XJTU | [arXiv 2510.24021](https://arxiv.org/abs/2510.24021) |
+| [HJSang/OPSD_OnPolicyDistillation](https://github.com/HJSang/OPSD_OnPolicyDistillation) (TIP — Token Importance, shares LinkedIn OPSD repo with PACED) | <img src="https://img.shields.io/github/stars/HJSang/OPSD_OnPolicyDistillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Meta / LinkedIn | [arXiv 2604.14084](https://arxiv.org/abs/2604.14084) |
+| [machine981/SCOPE](https://github.com/machine981/SCOPE) (signal-calibrated dual-path) | <img src="https://img.shields.io/github/stars/machine981/SCOPE?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | USTC / Meituan / Fudan | [arXiv 2604.10688](https://arxiv.org/abs/2604.10688) |
+| [kmswin1/TSD-KD](https://github.com/kmswin1/TSD-KD) (token-selective dual KD) | <img src="https://img.shields.io/github/stars/kmswin1/TSD-KD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Korea Univ. | [arXiv 2603.13260](https://arxiv.org/abs/2603.13260) (ICLR 2026) |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -307,7 +130,6 @@ Methods that turned out to be off-policy / pure-loss-function / pretraining-side
 | TIP | Top-50% high-entropy student tokens carry the OPD signal | Student (selected) | Token (filtered) | Reasoning | ~47% memory savings; only entropy-high student tokens trained. |
 | SCOPE | Teacher-PPL-weighted KL on incorrect rollouts; student-PPL-weighted MLE on correct | Student | Token | Reasoning | Signal-Calibrated OPD with Dual-Path Adaptive Weighting; verifier-routing. |
 | TSD-KD | Indirect (student-propose / teacher re-rank) + direct selective logit KD | Mixed | Token (selected) | General | Hybrid; partial OPD + partial preference. |
-| SelecTKD | Selective token-weighted KD; supports on-policy data | Student (optional) | Token (selected) | General | Selective Token-Weighted KD; on-policy mode supported. |
 
 </details>
 
@@ -320,7 +142,7 @@ When the teacher is **API-only** (no logits), OPD uses scalar rewards, verbal sc
 | Method / Repo | 🌟 Stars | Date | Org | Paper Link |
 | :----: | :----: | :----: |  :----: | :----: |
 | [microsoft/LMOps `/gad`](https://github.com/microsoft/LMOps) (GAD — Black-Box OPD) | <img src="https://img.shields.io/github/stars/microsoft/LMOps?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | Microsoft Research | [arXiv 2511.10643](https://arxiv.org/abs/2511.10643) · [project](https://ytianzhu.github.io/Generative-Adversarial-Distillation/) |
-| OVD (On-policy Verbal Distillation) | 📄 paper-only | 2026.01 | HKU / Huawei | [arXiv 2601.21968](https://arxiv.org/abs/2601.21968) |
+| OVD (On-policy Verbal Distillation) | 📄 paper-only (project page `OVD.github.io` 404s) | 2026.01 | HKU / Huawei | [arXiv 2601.21968](https://arxiv.org/abs/2601.21968) |
 | ORPO-Distill | 📄 paper-only | 2025.09 | Industrial | [arXiv 2509.25100](https://arxiv.org/abs/2509.25100) |
 
 <details>
@@ -408,13 +230,13 @@ Newly added on verification: **AlignDistil** (RLHF-equivalent distillation), **B
 | Faster WIND (iterative BoN) | 📄 paper-only | 2024.10 | CMU / Google | [arXiv 2410.20727](https://arxiv.org/abs/2410.20727) (AISTATS 2025) |
 | KETCHUP (k-step RL-KD) | 📄 paper-only | 2025.04 | U. Alberta | [arXiv 2504.19024](https://arxiv.org/abs/2504.19024) |
 | 𝒳-KD (IRL-style) | 📄 paper-only | 2026.02 | BUPT | [arXiv 2602.12674](https://arxiv.org/abs/2602.12674) |
-| DDT (on-policy SFT theory) | 📄 paper-only | 2026.02 | MSRA / Shopee | [arXiv 2602.12222](https://arxiv.org/abs/2602.12222) |
+| [zhangmiaosen2000/Towards-On-Policy-SFT](https://github.com/zhangmiaosen2000/Towards-On-Policy-SFT) (DDT — on-policy SFT theory) | <img src="https://img.shields.io/github/stars/zhangmiaosen2000/Towards-On-Policy-SFT?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | MSRA / Shopee | [arXiv 2602.12222](https://arxiv.org/abs/2602.12222) |
 | RLAD (Reinforcement-aware KD) | 📄 paper-only | 2026.02 | AWS | [arXiv 2602.22495](https://arxiv.org/abs/2602.22495) |
 | KDRL (Joint KD + RL) | 📄 paper-only | 2025.06 | HIT / Huawei | [arXiv 2506.02208](https://arxiv.org/abs/2506.02208) |
 | Self-Distilled RLVR (RLSD) | 📄 paper-only | 2026.04 | Multi-org | [arXiv 2604.03128](https://arxiv.org/abs/2604.03128) |
 | HDPO (Hybrid Distillation PO) | 📄 paper-only | 2026.03 | NVIDIA | [arXiv 2603.23871](https://arxiv.org/abs/2603.23871) |
 | Self-Distillation Zero (SD-Zero) | 📄 paper-only | 2026.04 | Princeton / Toronto / CMU | [arXiv 2604.12002](https://arxiv.org/abs/2604.12002) |
-| Probing-to-Refine (EI / EXGRPO) | 📄 paper-only | 2026.03 | UNC / ASU | [arXiv 2603.19266](https://arxiv.org/abs/2603.19266) |
+| [Zhen-Tan-dmml/ExGRPO](https://github.com/Zhen-Tan-dmml/ExGRPO) (Probing-to-Refine / EI / EXGRPO) | <img src="https://img.shields.io/github/stars/Zhen-Tan-dmml/ExGRPO?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | UNC / ASU | [arXiv 2603.19266](https://arxiv.org/abs/2603.19266) |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -483,7 +305,7 @@ Strict OPD work in non-text modalities. Many "R1"/"GRPO" multimodal models that 
 | :----: | :----: | :----: |  :----: | :----: |
 | [Lakonik/piFlow](https://github.com/Lakonik/piFlow) (π-Flow — image / flow OPD) | <img src="https://img.shields.io/github/stars/Lakonik/piFlow?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | Multi-org | [arXiv 2510.14974](https://arxiv.org/abs/2510.14974) (ICLR 2026) |
 | [stepfun-ai/Step-Audio-R1](https://github.com/stepfun-ai/Step-Audio-R1) | <img src="https://img.shields.io/github/stars/stepfun-ai/Step-Audio-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | StepFun | [arXiv 2511.15848](https://arxiv.org/abs/2511.15848) |
-| VOLD (LLM→VLM OPD) | 📄 paper-only | 2025.10 | INRIA / Goethe Univ. | [arXiv 2510.23497](https://arxiv.org/abs/2510.23497) (ICLR 2026) |
+| VOLD (LLM→VLM OPD) | 📄 paper-only ([project page](https://walidbousselham.com/VOLD/), repo placeholder) | 2025.10 | INRIA / Goethe Univ. | [arXiv 2510.23497](https://arxiv.org/abs/2510.23497) (ICLR 2026) |
 | Video-OPD | 📄 paper-only | 2026.02 | Industrial | [arXiv 2602.02994](https://arxiv.org/abs/2602.02994) |
 | X-OPD (Speech LLM) | 📄 paper-only | 2026.03 | Tencent Hunyuan / ZJU | [arXiv 2603.24596](https://arxiv.org/abs/2603.24596) |
 
@@ -510,8 +332,8 @@ Genuine OPD where the **student is an agent** rolling out actions; teacher (or s
 | :----: | :----: | :----: |  :----: | :----: |
 | [Gen-Verse/OpenClaw-RL](https://github.com/Gen-Verse/OpenClaw-RL) (cross-list with OPD-RL) | <img src="https://img.shields.io/github/stars/Gen-Verse/OpenClaw-RL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Gen-Verse | [arXiv 2603.10165](https://arxiv.org/abs/2603.10165) |
 | [modelscope/easydistill](https://github.com/modelscope/easydistill) (`/projects/SCoRe`) | <img src="https://img.shields.io/github/stars/modelscope/easydistill?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | Alibaba ModelScope | [SCoRe arXiv 2509.14257](https://arxiv.org/abs/2509.14257) |
-| RPD (Refined Policy Distillation, VLA) | 📄 paper-only ([project](https://refined-policy-distillation.github.io/)) | 2025.03 | TUM / Freiburg | [arXiv 2503.05833](https://arxiv.org/abs/2503.05833) (IROS 2026) |
-| LLM4Teach (small-RL agent guided by LLM) | 📄 paper-only | 2023.11 (updated 2025) | Academic | [arXiv 2311.13373](https://arxiv.org/abs/2311.13373) |
+| [Refined-Policy-Distillation/RPD](https://github.com/Refined-Policy-Distillation/RPD) (Refined Policy Distillation, VLA) | <img src="https://img.shields.io/github/stars/Refined-Policy-Distillation/RPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | TUM / Freiburg | [arXiv 2503.05833](https://arxiv.org/abs/2503.05833) (IROS 2026) · [project](https://refined-policy-distillation.github.io/) |
+| [ZJLAB-AMMI/LLM4Teach](https://github.com/ZJLAB-AMMI/LLM4Teach) (small-RL agent guided by LLM) | <img src="https://img.shields.io/github/stars/ZJLAB-AMMI/LLM4Teach?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2023.11 (updated 2025) | ZJ Lab AMMI | [arXiv 2311.13373](https://arxiv.org/abs/2311.13373) |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -551,7 +373,7 @@ Removed on verification: **Ouroboros** (training-free phrase recycling), **Sequo
 | [shrango/poss](https://github.com/shrango/poss) (POSS) | <img src="https://img.shields.io/github/stars/shrango/poss?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.06 | WashU / CMU | [arXiv 2506.03566](https://arxiv.org/abs/2506.03566) |
 | [sgl-project/SpecForge](https://github.com/sgl-project/SpecForge) (open EAGLE-3 training framework) | <img src="https://img.shields.io/github/stars/sgl-project/SpecForge?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | SGLang | [LMSYS blog](https://www.lmsys.org/blog/2025-07-25-spec-forge/) |
 | DistillSpec | 📄 paper-only | 2023.10 | Google DeepMind | [arXiv 2310.08461](https://arxiv.org/abs/2310.08461) (ICLR 2024) |
-| SpecKD (verification-gated KD) | 📄 paper-only | 2025.10 | Academic | [arXiv 2510.24021](https://arxiv.org/abs/2510.24021) |
+| SpecKD / SelecTKD (verification-gated KD; v1=SpecKD, v2 retitled SelecTKD) | 📄 paper-only | 2025.10 | XJTU (Haiduo Huang et al.) | [arXiv 2510.24021](https://arxiv.org/abs/2510.24021) |
 | ReSpec (RL drafter evolution) | 📄 paper-only | 2025.10 | Academic | [arXiv 2510.26475](https://arxiv.org/abs/2510.26475) |
 | DVI (Draft-Verify-Improve, online RL) | 📄 paper-only | 2025.10 | Academic | [arXiv 2510.05421](https://arxiv.org/abs/2510.05421) |
 | CORAL (Cross-Step Representation Alignment) | 📄 paper-only | 2025.02 | Academic | [arXiv 2502.16880](https://arxiv.org/abs/2502.16880) (ACL 2025) |
@@ -673,11 +495,11 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 | **Gemma 2** (explicit OPD) | [google-deepmind/gemma](https://github.com/google-deepmind/gemma) | <img src="https://img.shields.io/github/stars/google-deepmind/gemma?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2024.07 | Google DeepMind | [arXiv 2408.00118](https://arxiv.org/abs/2408.00118) |
 | Gemma 3 (mostly pretraining off-policy; some on-policy in post) | [google-deepmind/gemma](https://github.com/google-deepmind/gemma) | (same repo) | 2025.03 | Google DeepMind | [arXiv 2503.19786](https://arxiv.org/abs/2503.19786) |
 | **GLM-4.5 / 4.6** | [zai-org/GLM-4.5](https://github.com/zai-org/GLM-4.5) | <img src="https://img.shields.io/github/stars/zai-org/GLM-4.5?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.08 | Zhipu / Z.ai | [arXiv 2508.06471](https://arxiv.org/abs/2508.06471) |
-| **GLM-5** (cross-stage OPD) | (HF release) | — | 2026.02 | Zhipu / Z.ai | [arXiv 2602.15763](https://arxiv.org/abs/2602.15763) |
+| **GLM-5** (cross-stage OPD) | [zai-org/GLM-5](https://github.com/zai-org/GLM-5) | <img src="https://img.shields.io/github/stars/zai-org/GLM-5?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | Zhipu / Z.ai | [arXiv 2602.15763](https://arxiv.org/abs/2602.15763) |
 | **MiMo-V2-Flash** (MOPD) | [XiaomiMiMo/MiMo-V2-Flash](https://github.com/XiaomiMiMo/MiMo-V2-Flash) | <img src="https://img.shields.io/github/stars/XiaomiMiMo/MiMo-V2-Flash?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.01 | Xiaomi | [arXiv 2601.02780](https://arxiv.org/abs/2601.02780) |
 | **Llama 4** (Maverick codistilled from Behemoth in pretraining; borderline OPD) | [meta-llama/llama-models](https://github.com/meta-llama/llama-models) | <img src="https://img.shields.io/github/stars/meta-llama/llama-models?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.04 | Meta AI | [Llama 4 blog](https://ai.meta.com/blog/llama-4-multimodal-intelligence/) |
-| Phi-4-Mini-Reasoning (Rollout-DPO; borderline) | (HF only) | — | 2025.04 | Microsoft Research | [arXiv 2504.21233](https://arxiv.org/abs/2504.21233) |
-| **Nemotron Cascade 2** (multi-domain OPD; "we sample y∼π_inf(·|x)") | (HF release) | — | 2026.03 | NVIDIA | [arXiv 2603.19220](https://arxiv.org/abs/2603.19220) |
+| Phi-4-Mini-Reasoning (Rollout-DPO; borderline) | [HF: microsoft/Phi-4-mini-reasoning](https://huggingface.co/microsoft/Phi-4-mini-reasoning) | 🤗 HF-only | 2025.04 | Microsoft Research | [arXiv 2504.21233](https://arxiv.org/abs/2504.21233) |
+| **Nemotron Cascade 2** (multi-domain OPD; "we sample y∼π_inf(·|x)") | [HF Collection](https://huggingface.co/collections/nvidia/nemotron-cascade-2) · [project](https://research.nvidia.com/labs/nemotron/nemotron-cascade-2/) | 🤗 HF-only | 2026.03 | NVIDIA | [arXiv 2603.19220](https://arxiv.org/abs/2603.19220) |
 | **gpt-oss-120b/20b** ("trained with large-scale distillation and RL") | [openai/gpt-oss](https://github.com/openai/gpt-oss) | <img src="https://img.shields.io/github/stars/openai/gpt-oss?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.08 | OpenAI | [Model card 2508.10925](https://arxiv.org/abs/2508.10925) |
 
 <details>
@@ -723,11 +545,11 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | [jungseongryong/ToDi](https://github.com/jungseongryong/ToDi) | <img src="https://img.shields.io/github/stars/jungseongryong/ToDi?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.05 | Yonsei | [arXiv 2505.16297](https://arxiv.org/abs/2505.16297) (EMNLP 2025) |
 | [SassyRong/AdaKD](https://github.com/SassyRong/AdaKD) | <img src="https://img.shields.io/github/stars/SassyRong/AdaKD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | Industrial | [arXiv 2510.11615](https://arxiv.org/abs/2510.11615) (AAAI 2026) |
 | Cross-Tokenizer KD (ULD) | [Diabolocom-Research/ULD-Loss](https://github.com/Diabolocom-Research/ULD-Loss) | 2024.02 | Diabolocom / CentraleSupélec | [arXiv 2402.12030](https://arxiv.org/abs/2402.12030) (TMLR 2025) |
-| AMiD (α-mixture) | 📄 paper-only | 2025.10 | Academic | [arXiv 2510.15982](https://arxiv.org/abs/2510.15982) |
+| [aailab-kaist/AMiD](https://github.com/aailab-kaist/AMiD) (α-mixture KD) | <img src="https://img.shields.io/github/stars/aailab-kaist/AMiD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | KAIST | [arXiv 2510.15982](https://arxiv.org/abs/2510.15982) (ICLR 2026) |
 | DRKL | 📄 paper-only | 2026.04 | Wright State | [arXiv 2604.00223](https://arxiv.org/abs/2604.00223) |
-| CSD (Concrete Score) | 📄 paper-only | 2025.09 | KAIST | [arXiv 2509.25837](https://arxiv.org/abs/2509.25837) (ICLR 2026) |
+| [aailab-kaist/CSD](https://github.com/aailab-kaist/CSD) (Concrete Score Distillation) | <img src="https://img.shields.io/github/stars/aailab-kaist/CSD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | KAIST | [arXiv 2509.25837](https://arxiv.org/abs/2509.25837) (ICLR 2026) |
 | Delta KD | 📄 paper-only | 2025.09 | LinkedIn | [arXiv 2509.14526](https://arxiv.org/abs/2509.14526) |
-| HPD (mostly off-policy) | 📄 paper-only | 2026.04 | Academic | [arXiv 2604.20244](https://arxiv.org/abs/2604.20244) |
+| [zwhong714/Hybrid-Policy-Distillation](https://github.com/zwhong714/Hybrid-Policy-Distillation) (HPD — mostly off-policy) | <img src="https://img.shields.io/github/stars/zwhong714/Hybrid-Policy-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Academic | [arXiv 2604.20244](https://arxiv.org/abs/2604.20244) |
 | SODA (semi-on-policy black-box) | 📄 paper-only | 2026.04 | Microsoft Research | [arXiv 2604.03873](https://arxiv.org/abs/2604.03873) |
 
 ### Pretraining-time / pruning-time KD (on a static corpus)
@@ -756,10 +578,10 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | [Qihoo360/Light-R1](https://github.com/Qihoo360/Light-R1) | <img src="https://img.shields.io/github/stars/Qihoo360/Light-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | Qihoo 360 | [arXiv 2503.10460](https://arxiv.org/abs/2503.10460) |
 | [a-m-team/a-m-models](https://github.com/a-m-team/a-m-models) | <img src="https://img.shields.io/github/stars/a-m-team/a-m-models?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | a-m-team | [arXiv 2503.19633](https://arxiv.org/abs/2503.19633) · [arXiv 2505.14464](https://arxiv.org/abs/2505.14464) |
 | [huggingface/open-r1](https://github.com/huggingface/open-r1) | <img src="https://img.shields.io/github/stars/huggingface/open-r1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.01 | Hugging Face | (open R1 reproduction) |
-| Beyond Scaling Law (DED, NTele-32B-V1) | 📄 paper-only | 2025.08 | China Telecom | [arXiv 2508.09883](https://arxiv.org/abs/2508.09883) |
+| Beyond Scaling Law (DED, NTele-R1-32B-V1) — [HF model](https://huggingface.co/ZTE-AIM/NTele-R1-32B-V1) + [HF data](https://huggingface.co/datasets/ZTE-AIM/NTele-R1-Data) | 🤗 HF-only | 2025.08 | ZTE-AIM | [arXiv 2508.09883](https://arxiv.org/abs/2508.09883) |
 | Merge-of-Thought Distillation | 📄 paper-only | 2025.09 | Academic | [arXiv 2509.08814](https://arxiv.org/abs/2509.08814) |
 | Reasoning Scaffolding | 📄 paper-only | 2025.09 | Multi-org | [arXiv 2509.23619](https://arxiv.org/abs/2509.23619) |
-| DLCoT (Deconstructing Long CoT Distillation) | 📄 paper-only | 2025.03 | Alibaba | [arXiv 2503.16385](https://arxiv.org/abs/2503.16385) |
+| [elena-luo/SODE](https://github.com/elena-luo/SODE) (DLCoT — Deconstructing Long CoT Distillation) | <img src="https://img.shields.io/github/stars/elena-luo/SODE?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | Alibaba | [arXiv 2503.16385](https://arxiv.org/abs/2503.16385) |
 | **DistilQwen** series | [modelscope/easydistill](https://github.com/modelscope/easydistill) | 2025.04 | Alibaba PAI | [DistilQwen2.5 2504.15027](https://arxiv.org/abs/2504.15027) · [Thinking with DistilQwen 2511.01354](https://arxiv.org/abs/2511.01354) |
 
 ### Off-policy black-box / preference distillation
@@ -769,7 +591,7 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | [YJiangcm/Lion](https://github.com/YJiangcm/Lion) | <img src="https://img.shields.io/github/stars/YJiangcm/Lion?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2023.05 | HKUST | [arXiv 2305.12870](https://arxiv.org/abs/2305.12870) (EMNLP 2023) |
 | [YangLing0818/SuperCorrect-llm](https://github.com/YangLing0818/SuperCorrect-llm) | <img src="https://img.shields.io/github/stars/YangLing0818/SuperCorrect-llm?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2024.10 | PKU / Skywork | [arXiv 2410.09008](https://arxiv.org/abs/2410.09008) (ICLR 2025) |
 | DAIL | 📄 paper-only | 2026.02 | Georgia Tech | [arXiv 2602.02405](https://arxiv.org/abs/2602.02405) |
-| REDI (negative-signal RL distillation, offline) | 📄 paper-only | 2025.05 | Academic | [arXiv 2505.24850](https://arxiv.org/abs/2505.24850) |
+| [Tim-Siu/reinforcement-distillation](https://github.com/Tim-Siu/reinforcement-distillation) (REDI — negative-signal RL distillation, offline) | <img src="https://img.shields.io/github/stars/Tim-Siu/reinforcement-distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.05 | Academic | [arXiv 2505.24850](https://arxiv.org/abs/2505.24850) |
 
 ### Off-policy speech / audio / multimodal KD
 
@@ -789,15 +611,15 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | [Fu-Dayuan/AgentRefine](https://github.com/Fu-Dayuan/AgentRefine) | <img src="https://img.shields.io/github/stars/Fu-Dayuan/AgentRefine?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.01 | Multi-org | [arXiv 2501.01702](https://arxiv.org/abs/2501.01702) (ICLR 2025) |
 | [OPPO-PersonalAI/Agent_Foundation_Models](https://github.com/OPPO-PersonalAI/Agent_Foundation_Models) | <img src="https://img.shields.io/github/stars/OPPO-PersonalAI/Agent_Foundation_Models?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.08 | OPPO | [arXiv 2508.13167](https://arxiv.org/abs/2508.13167) |
 | Structured Agent Distillation (SAD) | 📄 paper-only | 2025.05 | Academic | [arXiv 2505.13820](https://arxiv.org/abs/2505.13820) |
-| MapCoder-Lite | 📄 paper-only | 2025.09 | Academic | [arXiv 2509.17489](https://arxiv.org/abs/2509.17489) |
-| Structured Distillation of Web Agent Capabilities | 📄 paper-only | 2026.04 | Multi-org | [arXiv 2604.07776](https://arxiv.org/abs/2604.07776) |
+| [aiha-lab/MapCoder-Lite](https://github.com/aiha-lab/MapCoder-Lite) | <img src="https://img.shields.io/github/stars/aiha-lab/MapCoder-Lite?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | Hanyang Univ. (AIHA Lab) | [arXiv 2509.17489](https://arxiv.org/abs/2509.17489) |
+| [McGill-NLP/agent-as-annotators](https://github.com/McGill-NLP/agent-as-annotators) (Structured Distillation of Web Agent Capabilities) | <img src="https://img.shields.io/github/stars/McGill-NLP/agent-as-annotators?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | McGill NLP | [arXiv 2604.07776](https://arxiv.org/abs/2604.07776) |
 | [InfiXAI/InfiGUI-R1](https://github.com/InfiXAI/InfiGUI-R1) (off-policy distill + RL) | <img src="https://img.shields.io/github/stars/InfiXAI/InfiGUI-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.04 | InfiX AI | [arXiv 2504.14239](https://arxiv.org/abs/2504.14239) |
 
 ### OPSD-style works that turned out to be off-policy on verification
 
 | Resource | 🌟 Stars | Date | Org | Paper |
 | :----: | :----: | :----: |  :----: | :----: |
-| Privileged Information Distillation (π-Distill) | 📄 paper-only | 2026.02 | ServiceNow / Mila | [arXiv 2602.04942](https://arxiv.org/abs/2602.04942) |
+| [Emilianopp/Privileged-Information-Distillation-and-Self-Distillation](https://github.com/Emilianopp/Privileged-Information-Distillation-and-Self-Distillation) (π-Distill, code "ASAP — pending legal approval") | <img src="https://img.shields.io/github/stars/Emilianopp/Privileged-Information-Distillation-and-Self-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | ServiceNow / Mila | [arXiv 2602.04942](https://arxiv.org/abs/2602.04942) |
 | TMS (Trajectory-Mixed Supervision) | 📄 paper-only | 2026.02 | UNC | [arXiv 2602.03073](https://arxiv.org/abs/2602.03073) |
 | Apple Memory-Retaining FT | 📄 page | 2025 | Apple MLR | [Apple ML page](https://machinelearning.apple.com/research/memory-retaining) |
 
@@ -837,7 +659,7 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | [weizhepei/WebAgent-R1](https://github.com/weizhepei/WebAgent-R1) | <img src="https://img.shields.io/github/stars/weizhepei/WebAgent-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.05 | Amazon / UVA | [arXiv 2505.16421](https://arxiv.org/abs/2505.16421) |
 | [InfiXAI/InfiGUI-G1](https://github.com/InfiXAI/InfiGUI-G1) | <img src="https://img.shields.io/github/stars/InfiXAI/InfiGUI-G1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.08 | InfiX AI | [arXiv 2508.05731](https://arxiv.org/abs/2508.05731) |
 | [ritzz-ai/GUI-R1](https://github.com/ritzz-ai/GUI-R1) | <img src="https://img.shields.io/github/stars/ritzz-ai/GUI-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.04 | CAS / NUS | [arXiv 2504.10458](https://arxiv.org/abs/2504.10458) |
-| Magistral (Mistral) | (HF release) | — | 2025.06 | Mistral AI | [arXiv 2506.10910](https://arxiv.org/abs/2506.10910) |
+| Magistral (Mistral) | [HF: mistralai/Magistral-Small-2506](https://huggingface.co/mistralai/Magistral-Small-2506) | 🤗 HF-only | 2025.06 | Mistral AI | [arXiv 2506.10910](https://arxiv.org/abs/2506.10910) |
 | [Alibaba-NLP/DeepResearch](https://github.com/Alibaba-NLP/DeepResearch) (Tongyi DeepResearch — RL not OPD) | <img src="https://img.shields.io/github/stars/Alibaba-NLP/DeepResearch?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | Alibaba Tongyi | [arXiv 2510.24701](https://arxiv.org/abs/2510.24701) |
 | [MiniMax-AI/MiniMax-M2](https://github.com/MiniMax-AI/MiniMax-M2) (CISPO RL) | <img src="https://img.shields.io/github/stars/MiniMax-AI/MiniMax-M2?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | MiniMax | [Blog](https://www.minimax.io/news/post-training-experience-and-insights-for-agent-models) |
 
@@ -848,6 +670,42 @@ Widely-cited **off-policy** KD baselines and "almost-OPD" works that the OPD wav
 | Why Distillation > Zero-RL? | [2505.21067](https://arxiv.org/abs/2505.21067) | 2025.05 | Academic |
 | RL vs. Distillation | [2505.14216](https://arxiv.org/abs/2505.14216) | 2025.05 | NYU / Stanford |
 | Why Self-Distillation (Sometimes) Degrades Reasoning? | [2603.24472](https://arxiv.org/abs/2603.24472) | 2026.03 | MSR / KAIST / SNU |
+
+---
+
+## 🌟 Curator's Picks — where to start
+
+Opinionated reading order for someone starting an OPD project today.
+
+| # | Why it's the pick | Resource |
+|---|---|---|
+| 1 | Clearest one-page explanation of why OPD beats both SFT and RL on token efficiency. | [Thinking Machines Lab blog (Oct 2025)](https://thinkingmachines.ai/blog/on-policy-distillation/) |
+| 2 | The production recipe everyone is now copying. Read §3.4. | [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) |
+| 3 | Reproducible OPD in <200 lines on a real training stack. | [tinker-cookbook recipes/distillation](https://github.com/thinking-machines-lab/tinker-cookbook/tree/main/tinker_cookbook/recipes/distillation) |
+| 4 | "Theory of OPD" — when it works, when it fails. | [THUNLP Rethinking OPD (2604.13016)](https://arxiv.org/abs/2604.13016) |
+| 5 | The paper that named OPSD and established the privileged-context pattern (Q1=B). | [Self-Distilled Reasoner (2601.18734)](https://arxiv.org/abs/2601.18734) |
+| 6 | Crystallises OPD as a special case of KL-constrained RL with reward extrapolation. | [G-OPD (2602.12125)](https://arxiv.org/abs/2602.12125) |
+| 7 | Catalogue of 50+ methods — read as an index, not a taxonomy. | [Tencent OPD Survey (2604.00626)](https://arxiv.org/abs/2604.00626) |
+| 8 | Most diverse open-source OPD trainer collection. | [TRL `experimental/`](https://github.com/huggingface/trl/tree/main/trl/experimental) |
+| 9 | Black-box OPD seed paper — adversarial discriminator as on-policy reward. | [GAD (2511.10643)](https://arxiv.org/abs/2511.10643) |
+| 10 | Empirical failure-modes paper — saves a week of debugging. | [Revisiting OPD (2603.25562)](https://arxiv.org/abs/2603.25562) |
+
+---
+
+## 🔭 Open Problems
+
+What this list also tells you, by the gaps it has:
+
+1. **No large-scale OPD scaling-law study.** Qwen3 reports 1/10 RL cost on AIME at 8B; nobody has plotted OPD compute-vs-quality curves across model scales.
+2. **Cross-tokenizer OPD is half-solved.** [DSKD](https://github.com/songmzhang/DSKD), [DSKDv2](https://github.com/songmzhang/DSKDv2), ULD exist; none are production-deployed; doesn't extend cleanly to MoE teachers.
+3. **No public Q1=B production report.** Every privileged-context-OPSD paper is research-scale. Missing the "Qwen3 of OPSD".
+4. **Pretraining-time OPD is wide open.** Llama 4's codistillation is the only public production example; pretraining KD literature is mostly off-policy data-side.
+5. **Non-text OPD is sparse.** [VOLD](https://arxiv.org/abs/2510.23497), [π-Flow](https://github.com/Lakonik/piFlow), [Step-Audio-R1](https://github.com/stepfun-ai/Step-Audio-R1), [RPD](https://arxiv.org/abs/2503.05833), [X-OPD](https://arxiv.org/abs/2603.24596) are individually strong but no unified multimodal OPD framework.
+6. **Evaluation is fragmented.** No standard "OPD-Bench"; papers split across AIME'24, GSM8K/MATH, HMMT25.
+7. **Theoretical guarantees lag.** OPD inherits DAGGER-style O(T) regret bound, but divergence choice (FKL vs RKL vs Skew) lacks clean theoretical preference under teacher–student gaps.
+8. **Inside-RL OPD unification is in flux.** SDPO, KDRL, RLAD, G-OPD, REOPOLD, SD-Zero, RLSD, HDPO each propose different RL+OPD fusions; no consensus as of Apr 2026.
+9. **OPD safety/alignment**: no work on whether OPD-distilled students inherit teacher's alignment properties or just surface tokens.
+10. **Tooling**: OPD support is *retro-fitted* to most RL frameworks. A purpose-built "OPD-first" framework with first-class privileged-context teachers, multi-teacher MOPD scheduling, and inside-RL KL-as-reward fusion would be adopted overnight.
 
 ---
 
