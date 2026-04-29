@@ -8,9 +8,9 @@
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
 <br>
-![OPSD](https://img.shields.io/badge/OPSD-9-A259FF?style=for-the-badge)
+![OPSD](https://img.shields.io/badge/OPSD-11-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
-![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-17-9B59B6?style=for-the-badge)
+![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-16-9B59B6?style=for-the-badge)
 <br>
 ![Reasoning](https://img.shields.io/badge/Reasoning_OPD-3-FF69B4?style=for-the-badge)
 ![Multimodal](https://img.shields.io/badge/Multimodal_OPD-5-2ECC71?style=for-the-badge)
@@ -178,6 +178,8 @@ Several entries previously listed here turned out on verification to use static 
 | [ml-ssd](https://github.com/apple/ml-ssd) | <img src="https://img.shields.io/github/stars/apple/ml-ssd?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Apple MLR | [arXiv 2604.01193](https://arxiv.org/abs/2604.01193) | Apple — Embarrassingly Simple Self-Distillation |
 | [GATES](https://arxiv.org/abs/2602.20574) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.20574) | 2026.02 | UMD | [arXiv 2602.20574](https://arxiv.org/abs/2602.20574) | GATES (Self-Distillation under Privileged Context) |
 | [OPSDL](https://arxiv.org/abs/2604.17535) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.17535) | 2026.04 | Baidu | [arXiv 2604.17535](https://arxiv.org/abs/2604.17535) | OPSDL (Long-Context Self-Distillation) |
+| [SD-Zero](https://arxiv.org/abs/2604.12002) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.12002) | 2026.04 | Princeton / Toronto / CMU | [arXiv 2604.12002](https://arxiv.org/abs/2604.12002) | **SD-Zero** — Self-Revision turns binary rewards into dense supervision |
+| [self-distillation-analysis](https://github.com/beanie00/self-distillation-analysis) | <img src="https://img.shields.io/github/stars/beanie00/self-distillation-analysis?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | MSR / KAIST / SNU | [arXiv 2603.24472](https://arxiv.org/abs/2603.24472) | **Why Does Self-Distillation (Sometimes) Degrade Reasoning?** — diagnostic study of OPSD failure modes |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -193,6 +195,8 @@ Several entries previously listed here turned out on verification to use static 
 | Apple SSD | Same model w/ temperature/truncation sampling | Cross-entropy on its own samples | Sequence | Code generation | "Embarrassingly simple" — sample, then SFT on those samples. Degenerate OPSD; "decoding-config" privilege. |
 | GATES | Document-conditioned tutor (same model) | RKL gated by tutor consensus | Token (gated) | Document QA | Both tutor and student sample rollouts; on-policy student-rollout updates contribute "modest additional improvement" on top of off-policy distillation. Mixed. |
 | OPSDL | Short-context same model | Point-wise RKL | Token | Long-context | On-Policy Self-Distillation for Long-Context LMs. |
+| SD-Zero | Reviser conditioned on generator's response + binary reward | Per-token KL: distill reviser → generator on student rollouts | Token | Math / code reasoning | Single model plays Generator + Reviser; reviser's reward-conditioned token distribution becomes dense supervision over the generator's response. Outperforms RFT, GRPO, SDFT under matched sample budget on Qwen3-4B-Instruct / Olmo-3-7B-Instruct (≥10% over base). Exhibits token-level self-localization and iterative self-evolution. |
+| Why-Does-SD-Degrade (analysis) | Varies (controlled study over rich-vs-thin context teachers) | RKL on student rollouts (analysis only) | Token | Math reasoning (in-domain + OOD) | **Diagnostic paper**, not a training method. Finds that conditioning the teacher on richer privileged context suppresses *epistemic verbalization* (uncertainty expression) in the student → fast in-domain gains but up to 40% OOD drops on Qwen3-8B / DeepSeek-Distill-Qwen-7B / Olmo3-7B-Instruct. Implication: privileged-context richness is a double-edged knob in OPSD. |
 
 </details>
 
@@ -201,6 +205,8 @@ Several entries previously listed here turned out on verification to use static 
 
 - **Apple SSD** — ⚠️ C2 is degenerate: no teacher KL signal; pure self-generated SFT (sample with temperature/truncation, then SFT on those samples). Closer to STaR-style self-bootstrapping than to OPSD. Kept because the "teacher" is the same model with a different decoding config — privileged-context-by-decoding.
 - **GATES** — ⚠️ Authors' own ablation says off-policy trajectory-level distillation drives the *primary gains*; on-policy student-rollout updates contribute only "modest additional improvement". Mixed; the OPSD leg is genuine but secondary.
+- **SD-Zero** — privileged context is *non-textual*: the reviser is conditioned on the generator's full response **plus its scalar binary reward**. C1 ✓ (generator samples its own rollouts), C2 ✓ (per-token KL from reviser). Compared head-to-head against GRPO in the paper but is not itself an RL method — there is no policy-gradient objective; the reward is a conditioning signal, not a return. Listed in OPSD rather than OPD-RL Hybrids for that reason.
+- **Why-Does-SD-Degrade** — analysis-only; no new training algorithm proposed. Listed here because the failure mode it characterises (epistemic-verbalization collapse under rich privileged context) is specific to OPSD.
 
 </details>
 
@@ -247,7 +253,6 @@ Newly added on verification: **AlignDistil** (RLHF-equivalent distillation), **B
 | [KDRL](https://arxiv.org/abs/2506.02208) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2506.02208) | 2025.06 | HIT / Huawei | [arXiv 2506.02208](https://arxiv.org/abs/2506.02208) | KDRL (Joint KD + RL) |
 | [RLSD](https://arxiv.org/abs/2604.03128) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.03128) | 2026.04 | Multi-org | [arXiv 2604.03128](https://arxiv.org/abs/2604.03128) | Self-Distilled RLVR (RLSD) |
 | [HDPO](https://arxiv.org/abs/2603.23871) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.23871) | 2026.03 | NVIDIA | [arXiv 2603.23871](https://arxiv.org/abs/2603.23871) | HDPO (Hybrid Distillation PO) |
-| [SD-Zero](https://arxiv.org/abs/2604.12002) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.12002) | 2026.04 | Princeton / Toronto / CMU | [arXiv 2604.12002](https://arxiv.org/abs/2604.12002) | Self-Distillation Zero (SD-Zero) |
 | [ExGRPO](https://github.com/Zhen-Tan-dmml/ExGRPO) | <img src="https://img.shields.io/github/stars/Zhen-Tan-dmml/ExGRPO?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | UNC / ASU | [arXiv 2603.19266](https://arxiv.org/abs/2603.19266) | Probing-to-Refine / EI / EXGRPO |
 
 <details>
@@ -271,7 +276,6 @@ Newly added on verification: **AlignDistil** (RLHF-equivalent distillation), **B
 | KDRL | Joint reverse-KL + GRPO rule-based reward | External teacher (Skywork-OR1) | Student | Token + outcome | Reasoning | Unified KD + RL objective. |
 | Self-Distilled RLVR (RLSD) | RLVR direction + teacher evidence-ratio modulates magnitude | Same model + privileged answer | Student | Token + outcome | Reasoning | Combines self-distillation magnitudes with RLVR directions. |
 | HDPO | RL on most prompts; on "cliff" prompts generate privileged rollouts and self-distill | Same model w/ privilege | Student | Token | Reasoning | Privileged self-distillation as RL fallback. |
-| SD-Zero | Generator + Reviser share weights; reviser supplies dense supervision | Same model = reviser | Student | Token | Reasoning | Turns binary rewards into dense supervision. |
 | Probing-to-Refine | "Explanatory probes" force logical articulation; GRPO + dialogue-structure reward | Self-probe | Student | Sequence | Reasoning | Reinforcement Distillation via Explanatory Inversion. |
 
 </details>
@@ -301,7 +305,7 @@ Genuine OPD work on math / code / long-CoT reasoning. Off-policy SFT-distill fro
 | [G-OPD](https://github.com/RUCBM/G-OPD) | <img src="https://img.shields.io/github/stars/RUCBM/G-OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | RUC / Tencent | [arXiv 2602.12125](https://arxiv.org/abs/2602.12125) | G-OPD (cross-list) |
 | [OPD-AVMP](https://arxiv.org/abs/2604.07944) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.07944) | 2026.04 | Academic | [arXiv 2604.07944](https://arxiv.org/abs/2604.07944) | OPD for Autonomous Vehicle Motion Planning |
 
-The reasoning-OPD canon already lives across **OPSD** (siyan-zhao/OPSD, CRISP), **Iterative Self-Bootstrapping** (rStar / rStar-Math), **OPD-RL Hybrids** (LUFFY, RLAD, KDRL, RLSD, HDPO, SD-Zero), and **White-Box** (REOPOLD, Fast OPD, Entropy-Aware OPD, TIP, SCOPE, PACED). This section only lists items not already covered above.
+The reasoning-OPD canon already lives across **OPSD** (siyan-zhao/OPSD, CRISP, SD-Zero), **Iterative Self-Bootstrapping** (rStar / rStar-Math), **OPD-RL Hybrids** (LUFFY, RLAD, KDRL, RLSD, HDPO), and **White-Box** (REOPOLD, Fast OPD, Entropy-Aware OPD, TIP, SCOPE, PACED). This section only lists items not already covered above.
 
 <details>
 <summary>📋 Click to view technical details</summary>
