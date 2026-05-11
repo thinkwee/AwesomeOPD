@@ -8,7 +8,7 @@
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
 <br>
-![OPSD](https://img.shields.io/badge/OPSD-12-A259FF?style=for-the-badge)
+![OPSD](https://img.shields.io/badge/OPSD-13-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-16-9B59B6?style=for-the-badge)
 <br>
