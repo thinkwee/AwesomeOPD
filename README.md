@@ -535,4 +535,28 @@ Opinionated reading order for someone starting an OPD project today.
 
 ## 🤝 Contributing
 
-PRs are very welcome. When adding an entry, please attempt to fill the technical-details columns (loss / divergence, data source, teacher access, granularity). If you cannot determine these by reading the paper or repo, leave a `?` — that's still useful.
+PRs are very welcome. When adding an entry, please attempt to fill in the technical details columns (loss / divergence, data source, teacher access, granularity). If you cannot determine these by reading the paper or repo, leave a `?` — that's still useful.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=thinkwee/AwesomeOPD&type=Date)](https://www.star-history.com/#thinkwee/AwesomeOPD&Date)
+
+
+## Citation
+
+If you find this repository useful, please consider citing it:
+
+```bibtex
+@misc{awesomeopd,
+  title={AwesomeOPD: A Comprehensive Survey of On-Policy Distillation},
+  author={AwesomeOPD Contributors},
+  year={2026},
+  url={https://github.com/thinkwee/AwesomeOPD}
+}
+```
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by the AwesomeOPD community</p>
+</div>
