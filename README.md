@@ -331,8 +331,9 @@ Strict OPD work in non-text modalities. Many "R1"/"GRPO" multimodal models that 
 | Resource | 🌟 Stars | Date | Org | Paper Link | Title / Notes |
 | :----: | :----: | :----: |  :----: | :----: | :---- |
 | [piFlow](https://github.com/Lakonik/piFlow) | <img src="https://img.shields.io/github/stars/Lakonik/piFlow?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.10 | Multi-org | [arXiv 2510.14974](https://arxiv.org/abs/2510.14974) | π-Flow — image / flow OPD (ICLR 2026) |
-| [Step-Audio-R1](https://github.com/stepfun-ai/Step-Audio-R1) | <img src="https://img.shields.io/github/stars/stepfun-ai/Step-Audio-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | StepFun | [arXiv 2511.15848](https://arxiv.org/abs/2511.15848) | Step-Audio-R1 |
 | [VOLD](https://arxiv.org/abs/2510.23497) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2510.23497) | 2025.10 | INRIA / Goethe Univ. | [arXiv 2510.23497](https://arxiv.org/abs/2510.23497) · [project page](https://walidbousselham.com/VOLD/) | VOLD (LLM→VLM OPD) — repo placeholder; ICLR 2026 |
+| [Step-Audio-R1](https://github.com/stepfun-ai/Step-Audio-R1) | <img src="https://img.shields.io/github/stars/stepfun-ai/Step-Audio-R1?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | StepFun | [arXiv 2511.15848](https://arxiv.org/abs/2511.15848) | Step-Audio-R1 |
+| [CORD](https://arxiv.org/abs/2601.16547) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2601.16547) | 2026.01 | Baidu Ernie | [arXiv 2601.16547](https://arxiv.org/abs/2601.16547) | Reasoning: Text ➡️ Audio |
 | [Video-OPD](https://arxiv.org/abs/2602.02994) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.02994) | 2026.02 | Industrial | [arXiv 2602.02994](https://arxiv.org/abs/2602.02994) | Video-OPD |
 | [X-OPD](https://arxiv.org/abs/2603.24596) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.24596) | 2026.03 | Tencent Hunyuan / ZJU | [arXiv 2603.24596](https://arxiv.org/abs/2603.24596) | X-OPD (Speech LLM) |
 
@@ -344,6 +345,7 @@ Strict OPD work in non-text modalities. Many "R1"/"GRPO" multimodal models that 
 | π-Flow | Image generation (flow models) | Teacher velocity field | L2 imitation distillation | Student | Strict OPD for diffusion: student predicts policy at each timestep along its own trajectory. |
 | Step-Audio-R1 | Audio reasoning | Self (modality-grounded) | Iterative self-distillation + SFT + PPO/RLVR | Student | Iterative on-policy cycles; only audio-relevant questions used in self-distill. |
 | VOLD | LLM → VLM | Text-only LLM | GRPO + on-policy KL distillation | Student | Cold-start SFT alignment + unified RL+KD; ICLR 2026. The flagship VLM OPD recipe. |
+| CORD | LLM → Audio | Self with text | Token-level RKL and sequence-level KL + GRPO | Student | Align cross-model reasoning |
 | Video-OPD | MLLM | LLM teacher | Token-level KL on student rollouts | Student | Temporal video grounding via OPD. |
 | X-OPD | Speech LLM | Text LLM | Cross-modal token-level KL | Student | Capability alignment in speech LLMs. |
 
