@@ -13,7 +13,7 @@
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-16-9B59B6?style=for-the-badge)
 <br>
 ![Reasoning](https://img.shields.io/badge/Reasoning_OPD-3-FF69B4?style=for-the-badge)
-![Multimodal](https://img.shields.io/badge/Multimodal_OPD-5-2ECC71?style=for-the-badge)
+![Multimodal](https://img.shields.io/badge/Multimodal_OPD-6-2ECC71?style=for-the-badge)
 ![Agent](https://img.shields.io/badge/Agent_&_Embodied-5-1F4CAD?style=for-the-badge)
 <br>
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-11-D89F7B?style=for-the-badge)
@@ -335,6 +335,7 @@ Strict OPD work in non-text modalities. Many "R1"/"GRPO" multimodal models that 
 | [VOLD](https://arxiv.org/abs/2510.23497) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2510.23497) | 2025.10 | INRIA / Goethe Univ. | [arXiv 2510.23497](https://arxiv.org/abs/2510.23497) · [project page](https://walidbousselham.com/VOLD/) | VOLD (LLM→VLM OPD) — repo placeholder; ICLR 2026 |
 | [Video-OPD](https://arxiv.org/abs/2602.02994) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.02994) | 2026.02 | Industrial | [arXiv 2602.02994](https://arxiv.org/abs/2602.02994) | Video-OPD |
 | [X-OPD](https://arxiv.org/abs/2603.24596) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.24596) | 2026.03 | Tencent Hunyuan / ZJU | [arXiv 2603.24596](https://arxiv.org/abs/2603.24596) | X-OPD (Speech LLM) |
+| [Uni-OPD](https://github.com/WenjinHou/Uni-OPD) | <img src="https://img.shields.io/github/stars/WenjinHou/Uni-OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.05 | Multi-org | [arXiv 2605.03677](https://arxiv.org/abs/2605.03677) | **Uni-OPD** — unified OPD across LLMs & MLLMs via dual-perspective recipe |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -346,6 +347,7 @@ Strict OPD work in non-text modalities. Many "R1"/"GRPO" multimodal models that 
 | VOLD | LLM → VLM | Text-only LLM | GRPO + on-policy KL distillation | Student | Cold-start SFT alignment + unified RL+KD; ICLR 2026. The flagship VLM OPD recipe. |
 | Video-OPD | MLLM | LLM teacher | Token-level KL on student rollouts | Student | Temporal video grounding via OPD. |
 | X-OPD | Speech LLM | Text LLM | Cross-modal token-level KL | Student | Capability alignment in speech LLMs. |
+| Uni-OPD | LLM & MLLM (5 domains / 16 benchmarks) | Single- or multi-teacher; supports strong-to-weak and cross-modal | Outcome-guided margin calibration + offline/online data balancing | Student rollouts | Dual-perspective recipe: addresses (i) insufficient exploration of informative student states via data balancing and (ii) unreliable teacher supervision via margin calibration restoring order-consistency between correct/incorrect trajectories. |
 
 </details>
 
@@ -501,7 +503,6 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 
 | Model | Stage(s) using OPD | Mechanism | Notes |
 | :----: | :----: | :----: | :---- |
-
 | **Gemma 2** | Post-training | "We also use **on-policy distillation**, where the student generates completions from the SFT prompts" — KL on student samples | Among the first production models to *name* OPD. |
 | **Qwen3** | Strong-to-Weak Distillation | Two-phase: (1) off-policy SFT cold-start with `/think` and `/no_think` teacher samples; (2) **on-policy phase** — student generates, teacher provides logit-KL targets | Reports ~10× cheaper than RL for equal performance. The canonical industrial OPD recipe. Inspired the Thinking Machines blog. |
 | GLM-4.5 / 4.6 | Multi-stage post-training | Expert iteration; SFT distillation merges experts into hybrid generalist | Predecessors of GLM-5. |
