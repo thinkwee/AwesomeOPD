@@ -361,25 +361,33 @@ Genuine OPD where the **student is an agent** rolling out actions; teacher (or s
 
 | Resource | 🌟 Stars | Date | Org | Paper Link | Title / Notes |
 | :----: | :----: | :----: |  :----: | :----: | :---- |
-| [OpenClaw-RL](https://github.com/Gen-Verse/OpenClaw-RL) | <img src="https://img.shields.io/github/stars/Gen-Verse/OpenClaw-RL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Gen-Verse | [arXiv 2603.10165](https://arxiv.org/abs/2603.10165) | OpenClaw-RL (cross-list with OPD-RL) |
-| [easydistill](https://github.com/modelscope/easydistill) | <img src="https://img.shields.io/github/stars/modelscope/easydistill?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | Alibaba ModelScope | [SCoRe arXiv 2509.14257](https://arxiv.org/abs/2509.14257) | `/projects/SCoRe` |
-| [RPD](https://github.com/Refined-Policy-Distillation/RPD) | <img src="https://img.shields.io/github/stars/Refined-Policy-Distillation/RPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | TUM / Freiburg | [arXiv 2503.05833](https://arxiv.org/abs/2503.05833) · [project](https://refined-policy-distillation.github.io/) | Refined Policy Distillation, VLA (IROS 2026) |
-| [VLA-OPD](https://irpn-lab.github.io/VLA-OPD/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.26666) | 2026.03 | HKUST (Guangzhou) — IRPN Lab | [arXiv 2603.26666](https://arxiv.org/abs/2603.26666) · [project](https://irpn-lab.github.io/VLA-OPD/) | **VLA-OPD** — bridging offline SFT & online RL for VLA via OPD (code coming soon) |
 | [LLM4Teach](https://github.com/ZJLAB-AMMI/LLM4Teach) | <img src="https://img.shields.io/github/stars/ZJLAB-AMMI/LLM4Teach?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2023.11 (updated 2025) | ZJ Lab AMMI | [arXiv 2311.13373](https://arxiv.org/abs/2311.13373) | LLM4Teach — small-RL agent guided by LLM |
+| [RPD](https://github.com/Refined-Policy-Distillation/RPD) | <img src="https://img.shields.io/github/stars/Refined-Policy-Distillation/RPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | TUM / Freiburg | [arXiv 2503.05833](https://arxiv.org/abs/2503.05833) · [project](https://refined-policy-distillation.github.io/) | Refined Policy Distillation, VLA (IROS 2026) |
+| [easydistill](https://github.com/modelscope/easydistill) | <img src="https://img.shields.io/github/stars/modelscope/easydistill?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | Alibaba ModelScope | [SCoRe arXiv 2509.14257](https://arxiv.org/abs/2509.14257) | `/projects/SCoRe` |
+| [OpenClaw-RL](https://github.com/Gen-Verse/OpenClaw-RL) | <img src="https://img.shields.io/github/stars/Gen-Verse/OpenClaw-RL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Gen-Verse | [arXiv 2603.10165](https://arxiv.org/abs/2603.10165) | OpenClaw-RL (cross-list with OPD-RL) |
+| [VLA-OPD](https://irpn-lab.github.io/VLA-OPD/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.26666) | 2026.03 | HKUST (Guangzhou) — IRPN Lab | [arXiv 2603.26666](https://arxiv.org/abs/2603.26666) · [project](https://irpn-lab.github.io/VLA-OPD/) | **VLA-OPD** — bridging offline SFT & online RL for VLA via OPD (code coming soon) |
+| [Skill-SD](https://arxiv.org/abs/2604.10674) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.10674) | 2026.04 | Vivo | [arXiv 2604.10674](https://arxiv.org/abs/2604.10674) | Skill-SD — skill-conditioned self-distillation for multi-turn LLM agents|
+| [TCOD](https://arxiv.org/abs/2604.24005) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.24005) | 2026.04 | Tongyi Lab, Alibaba / CUHK | [arXiv 2604.24005](https://arxiv.org/abs/2604.24005) | TCOD — temporal curriculum OPD for multi-turn agents; F2B & B2F schedules |
+| [Healthcare AI GYM](https://arxiv.org/abs/2605.02943) | <img src="https://img.shields.io/github/stars/minstar/Healthcare_GYM?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.05 | Upstage AI / Korea University | [arXiv 2605.02943](https://arxiv.org/abs/2605.02943) | Healthcare AI GYM — medical agent RL environment + turn-level truncated OPD |
+| [HyperEyes](https://github.com/DeepExperience/HyperEyes) | <img src="https://img.shields.io/github/stars/DeepExperience/HyperEyes?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.05 | Xiaohongshu / Cambridge | [arXiv 2605.07177](https://arxiv.org/abs/2605.07177) | HyperEyes — parallel multimodal search agent with dual-grained efficiency-aware RL (TRACE + OPD) |
+
 
 <details>
 <summary>📋 Click to view technical details</summary>
 
 | Method | Domain | Teacher Role | Loss | Notes |
 | :----: | :----: | :----: | :----: | :---- |
-| OpenClaw-RL | Terminal / GUI / SWE / Tool-call | Judge model + token-logprob gap | GRPO + OPD | Hindsight-hint extraction; combines binary RL and per-token OPD. |
-| SCoRe | 12 agent benchmarks | Larger teacher (72B) corrects earliest error in student rollout | SFT-on-corrections + short-horizon RL | 7B student matches 72B teacher. |
-| RPD | VLA / robot manipulation | Teacher VLA actions | PPO + behavioural cloning on student rollouts | Cleanest VLA-OPD recipe. |
-| VLA-OPD | VLA / robot manipulation (LIBERO, RoboTwin2.0) | Expert VLA teacher, dense token-level supervision on student trajectories | Reverse-KL (avoids FKL entropy explosion + Hard-CE collapse) | Replaces sparse RL reward; preserves generalist priors and mitigates catastrophic forgetting. |
 | LLM4Teach | Small RL agent | LLM teacher (action-level) | Distillation + RL annealed | Strict OPD for embodied; predates the wave. |
+| RPD | VLA / robot manipulation | Teacher VLA actions | PPO + behavioural cloning on student rollouts | Cleanest VLA-OPD recipe. |
+| SCoRe | 12 agent benchmarks | Larger teacher (72B) corrects earliest error in student rollout | SFT-on-corrections + short-horizon RL | 7B student matches 72B teacher. |
+| OpenClaw-RL | Terminal / GUI / SWE / Tool-call | Judge model + token-logprob gap | GRPO + OPD | Hindsight-hint extraction; combines binary RL and per-token OPD. |
+| VLA-OPD | VLA / robot manipulation (LIBERO, RoboTwin2.0) | Expert VLA teacher, dense token-level supervision on student trajectories | Reverse-KL (avoids FKL entropy explosion + Hard-CE collapse) | Replaces sparse RL reward; preserves generalist priors and mitigates catastrophic forgetting.| | Skill-SD | Multi-turn LLM agents| Skill-conditioned teacher: teacher conditions on analytical skills distilled from completed trajectories; student acts under plain task prompt | Importance-weighted RKL (Schulman K3 + importance weighting for unbiased gradients) + GRPO |Skills guide teacher (not student); dynamic teacher synchronization; sampled-token (not full-vocab) distillation|
+| TCOD| Multi-turn autonomous agents| Full-trajectory teacher; curriculum controls exposed depth: F2B (shallow→deep) or B2F (teacher demos front, student learns back) | Trajectory-level KL with temporal curriculum scheduling (linear pacing) | Solves trajectory-level KL instability in multi-turn OPD |
+| Healthcare AI GYM |  Clinical agent  |  EMA teacher with outcome-privileged info provides dense turn-level KL regularization  |  GRPO + TT-OPD (turn-level truncated OPD)  | Also provide a good gym for clinical agent training |
+| HyperEyes | Parallel multimodal search agent | External teacher|  TRACE (trajectory-level adaptive cost efficiency) + OPD (token-level) + GRPO  | Macro (trajectory) + micro (token) dual-grained|
 
 </details>
-
+  
 ---
 
 ## ⚡ Speculative-Decoding Distillation
