@@ -11,7 +11,7 @@
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
 <br>
-![OPSD](https://img.shields.io/badge/OPSD-13-A259FF?style=for-the-badge)
+![OPSD](https://img.shields.io/badge/OPSD-15-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-16-9B59B6?style=for-the-badge)
 <br>
@@ -32,7 +32,7 @@
  - 🪞 **OPSD** = special case where teacher *is the same model*, conditioned on privileged context (verified trace / answer / "be concise" prefix / longer context) or an earlier checkpoint.
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
- - 📅 Last updated: 2026-04-30
+ - 📅 Last updated: 2026-05-18
 
 Taxonomy:
  - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
@@ -185,6 +185,8 @@ Several entries previously listed here turned out on verification to use static 
 | [self-distillation-analysis](https://github.com/beanie00/self-distillation-analysis) | <img src="https://img.shields.io/github/stars/beanie00/self-distillation-analysis?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | MSR / KAIST / SNU | [arXiv 2603.24472](https://arxiv.org/abs/2603.24472) | **Why Does Self-Distillation (Sometimes) Degrade Reasoning?** — diagnostic study of OPSD failure modes |
 | [π-Play](https://arxiv.org/abs/2604.14054) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.14054) | 2026.04 | CASIA / UCAS / Meituan | [arXiv 2604.14054](https://arxiv.org/abs/2604.14054) | **π-Play** — multi-agent self-play turns the question-construction path into privileged context for OPSD on search agents |
 | [Skill-SD](https://skill-sd.github.io/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.10674) | 2026.04 | UCAS / CUHK / USTC / vivo AI Lab | [arXiv 2604.10674](https://arxiv.org/abs/2604.10674) | **Skill-SD** — skill-conditioned OPSD for multi-turn LLM agents |
+| [COPSD](https://github.com/cisnlp/COPSD) | <img src="https://img.shields.io/github/stars/cisnlp/COPSD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.05 | LMU Munich / MCML | [arXiv 2605.09548](https://arxiv.org/abs/2605.09548) | **COPSD** — crosslingual OPSD; teacher sees English problem translation + reference solution, student rolls out in low-resource language (17 African languages) |
+| [MSD](https://arxiv.org/abs/2605.02971) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2605.02971) | 2026.05 | Tongji / Shanghai AI Lab | [arXiv 2605.02971](https://arxiv.org/abs/2605.02971) | **MSD** — multilingual safety OPSD; teacher conditioned on English query translation + CoT instruction; DPSW weights safety-critical tokens |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -204,6 +206,8 @@ Several entries previously listed here turned out on verification to use static 
 | Why-Does-SD-Degrade (analysis) | Varies (controlled study over rich-vs-thin context teachers) | RKL on student rollouts (analysis only) | Token | Math reasoning (in-domain + OOD) | **Diagnostic paper**, not a training method. Finds that conditioning the teacher on richer privileged context suppresses *epistemic verbalization* (uncertainty expression) in the student → fast in-domain gains but up to 40% OOD drops on Qwen3-8B / DeepSeek-Distill-Qwen-7B / Olmo3-7B-Instruct. Implication: privileged-context richness is a double-edged knob in OPSD. |
 | π-Play | Teacher conditioned on **Question Construction Path (QCP)** — the reverse-direction artifact emitted by an examiner agent when it generates the task | Per-token reverse KL on student rollouts; teacher is an EMA copy of the student (τ=0.05) | Token | Search / deep-research / multi-hop QA agents (NQ, TriviaQA, HotpotQA, 2WikiMQA, MuSiQue, …) | Self-play loop *examiner ↔ student/teacher* with no external data. The QCP is privileged because it captures the reverse solution path the examiner used to construct the task; the teacher sees it, the student doesn't. Converts sparse-reward self-play into dense per-token supervision; data-free π-Play surpasses fully supervised search agents and is 2–3× more sample-efficient than conventional self-play. |
 | Skill-SD | Trajectory-derived skill summaries condition the teacher only | GRPO + importance-weighted reverse-KL on student rollouts | Token | Multi-turn agentic tasks (AppWorld, Sokoban) | Extends OPSD to multi-turn agentic interaction with dynamic training-only skills. |
+| COPSD | English problem translation + reference solution (privileged *crosslingual* context) | Per-token reverse KL with full-vocabulary logit distillation; teacher fixed during training; gradients flow only through student | Token | Multilingual math reasoning (PolyMath, AfriMGSM — 17 low-resource African languages) | Same model serves as both student (rollouts in low-resource language) and teacher (English-conditioned). Transfers a model's own high-resource reasoning behavior to low-resource languages; improves answer-format adherence and test-time scaling. |
+| MSD | English (high-resource) query translation + CoT instruction (privileged *crosslingual* context) | Per-token reverse KL with **Dual-Perspective Safety Weighting (DPSW)**: w_t = w_t^T · w_t^S, combining teacher top-K entropy (safety-criticality) × student disagreement risk (1−p_S) | Token (DPSW-weighted) | Multilingual safety alignment (jailbreak + utility benchmarks; e.g., English → Javanese) | Same model = teacher = student; ships **on-policy MSD** (student samples its own multilingual responses, strict C1+C2) and **off-policy MSD** (teacher-sampled) variants. Requires no translated response data — only multilingual queries. |
 
 </details>
 
