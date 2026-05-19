@@ -525,8 +525,7 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 | [HY-Embodied](https://github.com/Tencent-Hunyuan/HY-Embodied)    |  <img src="https://img.shields.io/github/stars/Tencent-Hunyuan/HY-Embodied?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars">  | 2026.04 |  Tencent Hunyuan |              [arXiv 2604.07430](https://arxiv.org/abs/2604.07430)   | **HY-Embodied-0.5** (FKL embodied distillation)             |
 | [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf) | 2026.04 | DeepSeek-AI | [Tech Report](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf) · [V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) · [V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | **DeepSeek-V4** (multi-teacher OPD replaces unified mixed-RL stage) |
 | Qwen3.5-Omni | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.15804)  | 2026.04 |   Alibaba Qwen   | [arXiv 2604.15804](https://arxiv.org/abs/2604.15804) · [API](https://www.alibabacloud.com/help/en/model-studio/qwen-omni)        | **Qwen3.5-Omni** (cross-modal OPD for audio reasoning) |
-
-
+｜Composor2.5｜[![Technical Report](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://cursor.com/cn/blog/composer-2-5) |2026.05| Cursor | [Technical Report](https://cursor.com/cn/blog/composer-2-5)|
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -546,6 +545,7 @@ Flagship model technical reports that publicly describe **on-policy** distillati
 | **HY-Embodied-0.5** | Post-training (final stage after embodied post-training) | Forward KL (FKL) on-policy distillation from 32B large variant to MoT-2B edge variant. Student generates embodied reasoning trajectories, teacher provides FKL targets.  | Mixture-of-Transformers (MoT) architecture with visual latent tokens; 22 embodied benchmarks; downstream VLA for real-world robot control (dual-arm Xtrainer); native-resolution ViT with discrete visual codebook (2k codebook, 8×8 patches) |
 | **DeepSeek-V4** | Post-training (replaces unified mixed-RL stage) | Multi-teacher OPD: domain specialists trained independently (SFT + GRPO per domain — math, code, agent, IF), then a unified student optimises reverse-KL against the specialist set on its own rollouts | Full-vocabulary KL (not token-level estimate) stabilises gradients when specialists disagree; first DeepSeek release where OPD replaces the RL consolidation stage from V3 / R1. V4-Pro 1.6T MoE; V4-Flash 284B. |
 |   **Qwen3.5-Omni**  |  Post-training (cross-modal capability transfer)     |  Cross-modal on-policy distillation: transferring text reasoning capabilities into audio-input reasoning. Thinker-Talker architecture with Hybrid Attention MoE for both modules.  | 256k context; 215 audio/audio-visual subtasks SOTA; ARIA (Adaptive Rate Interleave Alignment) for streaming speech stability; Audio-Visual Vibe Coding; 10-language speech generation with zero-shot voice cloning |
+｜Composor2.5｜ Post-training for coding agent | Rl with text feadback + OPD | similar to [RLSD](https://arxiv.org/pdf/2601.20802) | RLSD used in induastrial practice |
 
 
 </details>
