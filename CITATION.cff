@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "AwesomeOPD: A Comprehensive Survey of On-Policy Distillation"
+message: >-
+  If you find this repository useful for your research,
+  please cite it using the metadata from this file (or via
+  the "Cite this repository" button on the GitHub page).
+type: software
+authors:
+  - given-names: "Wei"
+    family-names: "Liu"
+    alias: "thinkwee"
+  - name: "The AwesomeOPD Team"
+abstract: >-
+  AwesomeOPD is a curated, continuously updated list of open-source
+  repositories and papers for training large language models (and VLMs,
+  agents, and draft models) with On-Policy Distillation (OPD) and
+  On-Policy Self-Distillation (OPSD). Each entry is annotated along four
+  design axes — teacher source, supervision signal, rollout consumption,
+  and pipeline slot — and organised into a taxonomy spanning surveys and
+  foundations, white-box and black-box OPD, OPSD, iterative
+  self-bootstrapping, OPD-RL hybrids, reasoning / multimodal / agent
+  applications, speculative-decoding distillation, frameworks, and
+  industrial production reports.
+keywords:
+  - "on-policy distillation"
+  - "knowledge distillation"
+  - "self-distillation"
+  - "large language models"
+  - "LLM"
+  - "OPD"
+  - "OPSD"
+  - "speculative decoding"
+  - "reinforcement learning"
+  - "post-training"
+  - "awesome list"
+  - "machine learning"
+repository-code: "https://github.com/thinkwee/AwesomeOPD"
+url: "https://github.com/thinkwee/AwesomeOPD"
+date-released: "2026-05-18"

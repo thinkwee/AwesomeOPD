@@ -32,6 +32,7 @@
  - 🪞 **OPSD** = special case where teacher *is the same model*, conditioned on privileged context (verified trace / answer / "be concise" prefix / longer context) or an earlier checkpoint.
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
+ - 📌 If you find this repository helpful for your research, please cite it via the **"Cite this repository"** button in the right sidebar of the GitHub page.
  - 📅 Last updated: 2026-05-18
 
 Taxonomy:
@@ -583,20 +584,6 @@ PRs are very welcome. When adding an entry, please attempt to fill in the techni
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=thinkwee/AwesomeOPD&type=Date)](https://www.star-history.com/#thinkwee/AwesomeOPD&Date)
-
-
-## Citation
-
-If you find this repository useful, please consider citing it:
-
-```bibtex
-@misc{awesomeopd,
-  title={AwesomeOPD: A Comprehensive Survey of On-Policy Distillation},
-  author={AwesomeOPD Contributors},
-  year={2026},
-  url={https://github.com/thinkwee/AwesomeOPD}
-}
-```
 
 ---
 
