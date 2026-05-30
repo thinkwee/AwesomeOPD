@@ -78,6 +78,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 | [Tencent OPD Survey](https://arxiv.org/abs/2604.00626) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.00626) | 2026.04 | Tencent (Mingyang Song & Mao Zheng) | [arXiv 2604.00626](https://arxiv.org/abs/2604.00626) | **A Survey of On-Policy Distillation for LLMs** |
 | [OPD](https://github.com/thunlp/OPD) | <img src="https://img.shields.io/github/stars/thunlp/OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Tsinghua THUNLP | [arXiv 2604.13016](https://arxiv.org/abs/2604.13016) | **Rethinking On-Policy Distillation: Phenomenology, Mechanism & Recipe** |
 | [Lightning OPD](https://arxiv.org/abs/2604.13010) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.13010) | 2026.04 | Wu, Han, Cai | [arXiv 2604.13010](https://arxiv.org/abs/2604.13010) | **Lightning OPD: Efficient Post-Training with Offline OPD** |
+| [OPSD Survey](https://arxiv.org/abs/2605.18141) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2605.18141) | 2026.05 | Academic | [arXiv 2605.18141](https://arxiv.org/abs/2605.18141) | **A Brief Overview: On-Policy Self-Distillation in LLMs** |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -90,6 +91,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 | Tencent OPD Survey | (survey) | (survey) | (survey) | (survey) | Catalogues 50+ methods; useful as a reference index. |
 | THUNLP Rethinking OPD | Reverse KL with progressive top-K alignment | Student | White-box | Token | Identifies two success conditions: compatible thinking patterns + genuinely new teacher capability. Recipe = **off-policy cold-start + teacher-aligned prompt selection**. |
 | Lightning OPD | Cached teacher log-probs over SFT rollouts (offline OPD) | Student (cached) | White-box | Token | Introduces "teacher consistency" — same teacher must be used for SFT and OPD or else gradient bias. Eliminates the live teacher server. |
+| OPSD Survey|(survey) | (survey) | (survey) | (survey) | Categorize eight designs; useful as a reference index. |
 
 </details>
 
