@@ -33,7 +33,7 @@
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
  - 📌 If you find this repository helpful for your research, please cite it via the **"Cite this repository"** button in the right sidebar of the GitHub page.
- - 📅 Last updated: 2026-05-31
+ - 📅 Last updated: 2026-05-18
 
 Taxonomy:
  - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
@@ -54,7 +54,6 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 <details>
 <summary>📢 click to expand</summary>
 
-- **2026-05-31** — add ROSD
 - **2026-05-18** — add COPSD, MSD
 - **2026-05-15** — add TCOD, Healthcare AI GYM, HyperEyes (and cross-list Skill-SD into Agent)
 - **2026-05-14** — add CORD
@@ -284,7 +283,7 @@ Methods that fuse OPD with **RLVR / GRPO / PPO / DPO**. Teacher logits become a 
 | [HDPO](https://arxiv.org/abs/2603.23871) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.23871) | 2026.03 | NVIDIA | [arXiv 2603.23871](https://arxiv.org/abs/2603.23871) | HDPO (Hybrid Distillation PO) |
 | [RLSD](https://arxiv.org/abs/2604.03128) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.03128) | 2026.04 | Multi-org | [arXiv 2604.03128](https://arxiv.org/abs/2604.03128) | Self-Distilled RLVR (RLSD) |
 | [NPO](https://arxiv.org/abs/2604.20733) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.20733) | 2026.04 | IIE CAS / UCAS / JD.COM | [arXiv 2604.20733](https://arxiv.org/abs/2604.20733) | NPO / AutoNPO — mixed-policy GRPO with **near-future self** as teacher |
-| [ROSD](https://arxiv.org/abs/2605.28014) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2605.28014) | 2026.05 | Academic | [arXiv 2605.28014](https://arxiv.org/abs/2605.28014) | ROSD — reflective error-localized self-distillation for cross-domain reasoning |
+| [ROSD](https://arxiv.org/abs/2605.28014) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2605.28014) | 2026.05 | PolyU / Baidu | [arXiv 2605.28014](https://arxiv.org/abs/2605.28014) | ROSD — reflective error-localized self-distillation  |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -308,7 +307,7 @@ Methods that fuse OPD with **RLVR / GRPO / PPO / DPO**. Teacher logits become a 
 | HDPO | RL on most prompts; on "cliff" prompts generate privileged rollouts and self-distill | Same model w/ privilege | Student | Token | Reasoning | Privileged self-distillation as RL fallback. |
 | Self-Distilled RLVR (RLSD) | RLVR direction + teacher evidence-ratio modulates magnitude | Same model + privileged answer | Student | Token + outcome | Reasoning | Combines self-distillation magnitudes with RLVR directions. |
 | NPO / AutoNPO | Mixed-Policy GRPO | Verifier-filtered trajectories from a **later checkpoint of the same training run** | Mixed | Sequence | Reasoning (RLVR) | "Learn from your near-future self". Picks a teacher that is *strong enough* (higher Q than current policy) yet *close enough* (low V vs. external teachers like R1), maximising effective Q/V signal. AutoNPO adaptively schedules the interventions; preserves higher entropy than vanilla GRPO. |
-| ROSD | SDPO-style self-distillation policy optimization | Reflection-conditioned same model = self-teacher | Student | Token (error-localized) | Reasoning (science, tool-use, math) | Uses a self-reflector to extract a corrective idea and localize the first erroneous span, then restricts self-distillation to the aligned error span to improve cross-domain generalization. |
+| ROSD | SDPO-style self-distillation policy optimization | Reflection-conditioned same model = self-teacher | Student | Token (error-localized) | Reasoning (science, tool-use, math) | Uses a self-reflector to extract a corrective idea and localize the first erroneous span, then restricts self-distillation to the aligned error span to improve LLM reasoning. |
 
 </details>
 
