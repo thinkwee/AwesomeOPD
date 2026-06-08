@@ -11,13 +11,13 @@
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-4-845C40?style=for-the-badge)
 <br>
-![OPSD](https://img.shields.io/badge/OPSD-15-A259FF?style=for-the-badge)
+![OPSD](https://img.shields.io/badge/OPSD-16-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-17-9B59B6?style=for-the-badge)
 <br>
 ![Reasoning](https://img.shields.io/badge/Reasoning_OPD-3-FF69B4?style=for-the-badge)
 ![Multimodal](https://img.shields.io/badge/Multimodal_OPD-6-2ECC71?style=for-the-badge)
-![Agent](https://img.shields.io/badge/Agent_&_Embodied-5-1F4CAD?style=for-the-badge)
+![Agent](https://img.shields.io/badge/Agent_&_Embodied-6-1F4CAD?style=for-the-badge)
 <br>
 ![SpecDec](https://img.shields.io/badge/Speculative_Decoding-11-D89F7B?style=for-the-badge)
 ![Frameworks](https://img.shields.io/badge/Frameworks-11-FA5A4C?style=for-the-badge)
@@ -33,7 +33,7 @@
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
  - 📌 If you find this repository helpful for your research, please cite it via the **"Cite this repository"** button in the right sidebar of the GitHub page.
- - 📅 Last updated: 2026-06-07
+ - 📅 Last updated: 2026-06-08
 
 Taxonomy:
  - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
@@ -54,6 +54,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 <details>
 <summary>📢 click to expand</summary>
 
+- **2026-06-08** — add EMPO² (OPSD; cross-listed into Agent)
 - **2026-06-07** — add SPOT
 - **2026-05-18** — add COPSD, MSD
 - **2026-05-15** — add TCOD, Healthcare AI GYM, HyperEyes (and cross-list Skill-SD into Agent)
@@ -199,6 +200,7 @@ Several entries previously listed here turned out on verification to use static 
 | [mtp-lm](https://github.com/jwkirchenbauer/mtp-lm) | <img src="https://img.shields.io/github/stars/jwkirchenbauer/mtp-lm?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | UMD / LLNL | [arXiv 2602.06019](https://arxiv.org/abs/2602.06019) | MTP Self-Distill |
 | [LMOps `/opcd`](https://github.com/microsoft/LMOps) | <img src="https://img.shields.io/github/stars/microsoft/LMOps?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | Microsoft Research | [arXiv 2602.12275](https://arxiv.org/abs/2602.12275) | OPCD — On-Policy Context Distillation |
 | [GATES](https://arxiv.org/abs/2602.20574) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.20574) | 2026.02 | UMD | [arXiv 2602.20574](https://arxiv.org/abs/2602.20574) | GATES (Self-Distillation under Privileged Context) |
+| [EMPO²](https://agent-lightning.github.io/posts/empo2/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.23008) | 2026.02 | Microsoft Research | [arXiv 2602.23008](https://arxiv.org/abs/2602.23008) · [code](https://github.com/microsoft/agent-lightning/tree/main/contrib/recipes/envs) · [blog](https://agent-lightning.github.io/posts/empo2/) | **EMPO²** — memory-tip-conditioned online self-distillation for exploratory LLM agents (ICLR 2026; cross-listed into Agent) |
 | [CRISP_Reasoning_Compression](https://github.com/HJSang/CRISP_Reasoning_Compression) | <img src="https://img.shields.io/github/stars/HJSang/CRISP_Reasoning_Compression?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | LinkedIn | [arXiv 2603.05433](https://arxiv.org/abs/2603.05433) | OPSDC / CRISP |
 | [LMOps `/oel`](https://github.com/microsoft/LMOps) | <img src="https://img.shields.io/github/stars/microsoft/LMOps?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Microsoft Research | [arXiv 2603.16856](https://arxiv.org/abs/2603.16856) | OEL — Online Experiential Learning |
 | [self-distillation-analysis](https://github.com/beanie00/self-distillation-analysis) | <img src="https://img.shields.io/github/stars/beanie00/self-distillation-analysis?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | MSR / KAIST / SNU | [arXiv 2603.24472](https://arxiv.org/abs/2603.24472) | **Why Does Self-Distillation (Sometimes) Degrade Reasoning?** — diagnostic study of OPSD failure modes |
@@ -220,6 +222,7 @@ Several entries previously listed here turned out on verification to use static 
 | MTP Self-Distill | Multi-token prediction same model | RKL on student rollouts | Token | General | Multi-Token Prediction via Self-Distillation. Author-stated on-policy. |
 | OPCD | In-context-knowledge-augmented same model | RKL on student rollouts | Token | Knowledge internalisation | Internalise context to be faithful even after context is removed. |
 | GATES | Document-conditioned tutor (same model) | RKL gated by tutor consensus | Token (gated) | Document QA | Both tutor and student sample rollouts; on-policy student-rollout updates contribute "modest additional improvement" on top of off-policy distillation. Mixed. |
+| EMPO² | Same model conditioned on self-generated memory "tips" — summaries of its own past rollouts — guiding tip-conditioned exploratory rollouts; the base policy acts **without** memory | Hybrid on-/off-policy: high-reward tip-conditioned trajectories are selectively self-distilled into the memory-free base policy, alongside GRPO | Token | Multi-turn LLM agents (ScienceWorld, WebShop) | Memory is **training-only scaffolding** for exploration — its benefit is internalized into the weights and removed at inference. +128.6% / +11.3% over GRPO on ScienceWorld / WebShop; strong OOD adaptability with no parameter updates. Implemented in Microsoft Agent Lightning. Same self-distillation-from-derived-context motivation as [Skill-SD](#-agent--embodied-opd-by-application), which it predates. |
 | CRISP / OPSDC | "Be concise" instruction prefix | Per-token RKL on student rollouts | Token | Reasoning compression | Compresses long-CoT without entropy collapse (unlike RL-with-length-penalty). |
 | OEL (Online Experiential Learning) | Same model with interactive game environment | RKL on student rollouts | Token | Game / planning | Self-distillation on interactive trajectories. |
 | Why-Does-SD-Degrade (analysis) | Varies (controlled study over rich-vs-thin context teachers) | RKL on student rollouts (analysis only) | Token | Math reasoning (in-domain + OOD) | **Diagnostic paper**, not a training method. Finds that conditioning the teacher on richer privileged context suppresses *epistemic verbalization* (uncertainty expression) in the student → fast in-domain gains but up to 40% OOD drops on Qwen3-8B / DeepSeek-Distill-Qwen-7B / Olmo3-7B-Instruct. Implication: privileged-context richness is a double-edged knob in OPSD. |
@@ -393,6 +396,7 @@ Genuine OPD where the **student is an agent** rolling out actions; teacher (or s
 | [LLM4Teach](https://github.com/ZJLAB-AMMI/LLM4Teach) | <img src="https://img.shields.io/github/stars/ZJLAB-AMMI/LLM4Teach?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2023.11 (updated 2025) | ZJ Lab AMMI | [arXiv 2311.13373](https://arxiv.org/abs/2311.13373) | LLM4Teach — small-RL agent guided by LLM |
 | [RPD](https://github.com/Refined-Policy-Distillation/RPD) | <img src="https://img.shields.io/github/stars/Refined-Policy-Distillation/RPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.03 | TUM / Freiburg | [arXiv 2503.05833](https://arxiv.org/abs/2503.05833) · [project](https://refined-policy-distillation.github.io/) | Refined Policy Distillation, VLA (IROS 2026) |
 | [easydistill](https://github.com/modelscope/easydistill) | <img src="https://img.shields.io/github/stars/modelscope/easydistill?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.09 | Alibaba ModelScope | [SCoRe arXiv 2509.14257](https://arxiv.org/abs/2509.14257) | `/projects/SCoRe` |
+| [EMPO²](https://agent-lightning.github.io/posts/empo2/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2602.23008) | 2026.02 | Microsoft Research | [arXiv 2602.23008](https://arxiv.org/abs/2602.23008) · [code](https://github.com/microsoft/agent-lightning/tree/main/contrib/recipes/envs) | EMPO² — memory-augmented online self-distillation for LLM agents (cross-list with OPSD) |
 | [OpenClaw-RL](https://github.com/Gen-Verse/OpenClaw-RL) | <img src="https://img.shields.io/github/stars/Gen-Verse/OpenClaw-RL?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Gen-Verse | [arXiv 2603.10165](https://arxiv.org/abs/2603.10165) | OpenClaw-RL (cross-list with OPD-RL) |
 | [VLA-OPD](https://irpn-lab.github.io/VLA-OPD/) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2603.26666) | 2026.03 | HKUST (Guangzhou) — IRPN Lab | [arXiv 2603.26666](https://arxiv.org/abs/2603.26666) · [project](https://irpn-lab.github.io/VLA-OPD/) | **VLA-OPD** — bridging offline SFT & online RL for VLA via OPD (code coming soon) |
 | [Skill-SD](https://arxiv.org/abs/2604.10674) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.10674) | 2026.04 | Vivo | [arXiv 2604.10674](https://arxiv.org/abs/2604.10674) | Skill-SD — skill-conditioned self-distillation for multi-turn LLM agents|
@@ -409,6 +413,7 @@ Genuine OPD where the **student is an agent** rolling out actions; teacher (or s
 | LLM4Teach | Small RL agent | LLM teacher (action-level) | Distillation + RL annealed | Strict OPD for embodied; predates the wave. |
 | RPD | VLA / robot manipulation | Teacher VLA actions | PPO + behavioural cloning on student rollouts | Cleanest VLA-OPD recipe. |
 | SCoRe | 12 agent benchmarks | Larger teacher (72B) corrects earliest error in student rollout | SFT-on-corrections + short-horizon RL | 7B student matches 72B teacher. |
+| EMPO² | Multi-turn LLM agents (ScienceWorld, WebShop) | Self-teacher conditioned on self-generated memory tips summarized from past rollouts; student acts memory-free | Hybrid on-/off-policy online self-distillation + GRPO | Memory = temporary exploration scaffolding, internalized into weights; no memory needed at inference. ICLR 2026; full details in [OPSD section](#-self-distillation-with-privileged-context--opsd). |
 | OpenClaw-RL | Terminal / GUI / SWE / Tool-call | Judge model + token-logprob gap | GRPO + OPD | Hindsight-hint extraction; combines binary RL and per-token OPD. |
 | VLA-OPD | VLA / robot manipulation (LIBERO, RoboTwin2.0) | Expert VLA teacher, dense token-level supervision on student trajectories | Reverse-KL (avoids FKL entropy explosion + Hard-CE collapse) | Replaces sparse RL reward; preserves generalist priors and mitigates catastrophic forgetting.| | Skill-SD | Multi-turn LLM agents| Skill-conditioned teacher: teacher conditions on analytical skills distilled from completed trajectories; student acts under plain task prompt | Importance-weighted RKL (Schulman K3 + importance weighting for unbiased gradients) + GRPO |Skills guide teacher (not student); dynamic teacher synchronization; sampled-token (not full-vocab) distillation|
 | TCOD| Multi-turn autonomous agents| Full-trajectory teacher; curriculum controls exposed depth: F2B (shallow→deep) or B2F (teacher demos front, student learns back) | Trajectory-level KL with temporal curriculum scheduling (linear pacing) | Solves trajectory-level KL instability in multi-turn OPD |
