@@ -9,7 +9,7 @@
 
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-7-4E6813?style=for-the-badge)
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
-![Black-Box](https://img.shields.io/badge/Black--Box_OPD-3-845C40?style=for-the-badge)
+![Black-Box](https://img.shields.io/badge/Black--Box_OPD-4-845C40?style=for-the-badge)
 <br>
 ![OPSD](https://img.shields.io/badge/OPSD-16-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-2-50C878?style=for-the-badge)
@@ -55,6 +55,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 <summary>📢 click to expand</summary>
 
 - **2026-06-08** — add EMPO² (OPSD; cross-listed into Agent)
+- **2026-06-07** — add SPOT
 - **2026-05-18** — add COPSD, MSD
 - **2026-05-15** — add TCOD, Healthcare AI GYM, HyperEyes (and cross-list Skill-SD into Agent)
 - **2026-05-14** — add CORD
@@ -167,6 +168,7 @@ When the teacher is **API-only** (no logits), OPD uses scalar rewards, verbal sc
 | [ORPO-Distill](https://arxiv.org/abs/2509.25100) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2509.25100) | 2025.09 | Industrial | [arXiv 2509.25100](https://arxiv.org/abs/2509.25100) | ORPO-Distill |
 | [LMOps `/gad`](https://github.com/microsoft/LMOps) | <img src="https://img.shields.io/github/stars/microsoft/LMOps?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2025.11 | Microsoft Research | [arXiv 2511.10643](https://arxiv.org/abs/2511.10643) · [project](https://ytianzhu.github.io/Generative-Adversarial-Distillation/) | GAD — Black-Box OPD |
 | [OVD](https://arxiv.org/abs/2601.21968) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2601.21968) | 2026.01 | HKU / Huawei | [arXiv 2601.21968](https://arxiv.org/abs/2601.21968) | OVD (On-policy Verbal Distillation) — project page `OVD.github.io` 404s |
+| [SPoT](https://github.com/Visual-AI/SPoT) | <img src="https://img.shields.io/github/stars/Visual-AI/SPoT?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.03 | Visual-AI | [arXiv 2603.01683](https://arxiv.org/abs/2603.01683) | **SPOT: Surgical Post-Training** — black-box oracle edits student failures into proximal rollouts |
 | [SODA](https://arxiv.org/pdf/2604.03873) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/pdf/2604.03873) | 2026.04 | Academic | [arXiv 2604.03873](https://arxiv.org/pdf/2604.03873) | SODA — Semi On-Policy Black-Box Distillation |
 
 
@@ -179,6 +181,7 @@ When the teacher is **API-only** (no logits), OPD uses scalar rewards, verbal sc
 | ORPO-Distill | Student-Generated Outputs (SGO) + ORPO contrastive | Mixed (student-generated negatives, teacher positives) | Sequence | Cross-architecture | "Mixed-policy strategy utilizing student-generated outputs"; NeurIPS 2025 WS. |
 | GAD (Generative Adversarial Distillation) | Discriminator (on-policy reward model) | Student | Sequence | General | A trained discriminator distinguishes student outputs from teacher (e.g. GPT-5) responses; minimax game makes the discriminator co-evolve into an on-policy reward model. Qwen2.5-14B student becomes comparable to GPT-5-Chat on LMSYS. |
 | OVD | Verbal scores (0–9) on student trajectories | Student | Sequence | General | Replaces token-level logit matching with verbal scoring; +25.7% over baselines. |
+| SPOT | Black-box Oracle step edits + BCE reward objective | Student rollouts, Oracle-rectified | Step / sequence | Math reasoning | Minimal edits keep samples proximal to the student distribution, targeting reasoning gains with knowledge retention. |
 | SODA | DPO: teacher responses as preferred vs. base student (q₀) zero-shot responses as rejected | Mixed | Sequence | Cross-architecture | "Semi on-policy" paradigm: captures student-specific inferior behaviors from a one-time static snapshot of q₀, eliminating the need for dynamic rollouts or adversarial training. 10× faster and 27% less peak GPU memory than GAD. Outperforms GAD on 15/16 benchmarks |
 </details>
 
