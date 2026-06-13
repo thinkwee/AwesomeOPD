@@ -8,7 +8,7 @@
 [![oosmetrics](https://api.oosmetrics.com/api/v1/badge/achievement/d1bd4be6-a545-4fb5-8c5a-0069d4c0b0d8.svg)](https://oosmetrics.com/repo/thinkwee/AwesomeOPD)
 
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-7-4E6813?style=for-the-badge)
-![White-Box](https://img.shields.io/badge/White--Box_OPD-17-BFA2DB?style=for-the-badge)
+![White-Box](https://img.shields.io/badge/White--Box_OPD-18-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-4-845C40?style=for-the-badge)
 <br>
 ![OPSD](https://img.shields.io/badge/OPSD-16-A259FF?style=for-the-badge)
@@ -33,7 +33,7 @@
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
  - 📌 If you find this repository helpful for your research, please cite it via the **"Cite this repository"** button in the right sidebar of the GitHub page.
- - 📅 Last updated: 2026-06-08
+ - 📅 Last updated: 2026-06-13
 
 Taxonomy:
  - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
@@ -54,6 +54,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 <details>
 <summary>📢 click to expand</summary>
 
+- **2026-06-13** — add TRD (White-Box; trajectory-level refinement) + Li Jiang's OPD reflection blog
 - **2026-06-08** — add EMPO² (OPSD; cross-listed into Agent)
 - **2026-06-07** — add SPOT
 - **2026-05-18** — add COPSD, MSD
@@ -81,6 +82,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 | [OPD](https://github.com/thunlp/OPD) | <img src="https://img.shields.io/github/stars/thunlp/OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Tsinghua THUNLP | [arXiv 2604.13016](https://arxiv.org/abs/2604.13016) | **Rethinking On-Policy Distillation: Phenomenology, Mechanism & Recipe** |
 | [Lightning OPD](https://arxiv.org/abs/2604.13010) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2604.13010) | 2026.04 | Wu, Han, Cai | [arXiv 2604.13010](https://arxiv.org/abs/2604.13010) | **Lightning OPD: Efficient Post-Training with Offline OPD** |
 | [OPSD Survey](https://arxiv.org/abs/2605.18141) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2605.18141) | 2026.05 | Academic | [arXiv 2605.18141](https://arxiv.org/abs/2605.18141) | **A Brief Overview: On-Policy Self-Distillation in LLMs** |
+| [Blog](https://louieworth.github.io/blog/opd_reflection/) | [![Blog](https://img.shields.io/badge/blog_post-reflection-blue?style=for-the-badge)](https://louieworth.github.io/blog/opd_reflection/) | 2026.06 | Li Jiang | [Blog](https://louieworth.github.io/blog/opd_reflection/) · [arXiv 2606.08432](https://arxiv.org/abs/2606.08432) | **On-Policy Distillation: Promise, Pitfalls, and Prospects** — reflection on OPD's promise, three failure mechanisms (local teacher noise, coverage decay, myopic gradients) & prospects; companion to TRD |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -131,6 +133,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | [SCOPE](https://github.com/machine981/SCOPE) | <img src="https://img.shields.io/github/stars/machine981/SCOPE?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | USTC / Meituan / Fudan | [arXiv 2604.10688](https://arxiv.org/abs/2604.10688) | SCOPE — signal-calibrated dual-path |
 | [OPSD_OnPolicyDistillation](https://github.com/HJSang/OPSD_OnPolicyDistillation) | <img src="https://img.shields.io/github/stars/HJSang/OPSD_OnPolicyDistillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Meta / LinkedIn | [arXiv 2604.14084](https://arxiv.org/abs/2604.14084) | TIP — Token Importance, shares LinkedIn OPSD repo with PACED |
 | [Hybrid-Policy-Distillation](https://github.com/zwhong714/Hybrid-Policy-Distillation) | <img src="https://img.shields.io/github/stars/zwhong714/Hybrid-Policy-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | zwhong714 | [arXiv 2604.20244](https://arxiv.org/abs/2604.20244) | HPD — Hybrid Policy Distillation; LlamaFactory + verl backends |
+| [trd](https://github.com/louieworth/trd) | <img src="https://img.shields.io/github/stars/louieworth/trd?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.06 | McGill / Mila / UT Austin (Jiang et al.) | [arXiv 2606.08432](https://arxiv.org/abs/2606.08432) | **TRD — Trajectory-Refined Distillation**; diagnoses *prefix failure* of dense per-token OPD, refines student rollouts at trajectory level before distilling; verl-based, also applies to OPSD |
 
 <details>
 <summary>📋 Click to view technical details</summary>
@@ -154,6 +157,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | SCOPE | Teacher-PPL-weighted KL on incorrect rollouts; student-PPL-weighted MLE on correct | Student | Token | Reasoning | Signal-Calibrated OPD with Dual-Path Adaptive Weighting; verifier-routing. |
 | TIP | Top-50% high-entropy student tokens carry the OPD signal | Student (selected) | Token (filtered) | Reasoning | ~47% memory savings; only entropy-high student tokens trained. |
 | HPD | Reweighted log-likelihood unifying FKL + RKL | Mixed (off-policy + lightweight approximate on-policy sampling) | Token | General | Unifies KD as token-level reweighted likelihood; lightweight on-policy sampling preserves training efficiency. |
+| TRD | Trajectory-level refinement of student rollouts, then distillation | Student (refined) | Trajectory → Token | Reasoning | Argues dense per-token supervision causes *prefix failure*; revises problematic student predictions at the trajectory level before distilling. Generalises to on-policy self-distillation. |
 
 </details>
 
