@@ -8,7 +8,7 @@
 [![oosmetrics](https://api.oosmetrics.com/api/v1/badge/achievement/d1bd4be6-a545-4fb5-8c5a-0069d4c0b0d8.svg)](https://oosmetrics.com/repo/thinkwee/AwesomeOPD)
 
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-8-4E6813?style=for-the-badge)
-![White-Box](https://img.shields.io/badge/White--Box_OPD-20-BFA2DB?style=for-the-badge)
+![White-Box](https://img.shields.io/badge/White--Box_OPD-21-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-5-845C40?style=for-the-badge)
 <br>
 ![OPSD](https://img.shields.io/badge/OPSD-19-A259FF?style=for-the-badge)
@@ -33,7 +33,7 @@
  - 🚀 Each entry is annotated along four design axes — **teacher source** (external · same model with privileged context · earlier checkpoint · multi-teacher · discriminator), **supervision signal** (logits / top-k / sequence reward / verbal score / discriminator / verifier / feature), **rollout consumption** (all / selected / truncated / replaced / as PG samples), and **pipeline slot** (cold-start / mid / RL-replacement / inside-RL / inter-stage / compression / continual-anchor).
  - ⚠️ Built by reading paper PDFs, project pages, and source code with LLM coding agents; manually reviewed but errors possible. PRs welcome.
  - 📌 If you find this repository helpful for your research, please cite it via the **"Cite this repository"** button in the right sidebar of the GitHub page.
- - 📅 Last updated: 2026-06-19
+ - 📅 Last updated: 2026-06-23
 
 Taxonomy:
  - **📚 Surveys, Foundations & Position Papers** — meta-references and seed papers (GKD, MiniLLM, Thinking Machines blog, Tencent / THUNLP surveys)
@@ -54,6 +54,7 @@ Shorthand: **FKL** = forward KL · **RKL** = reverse KL · **JSD** = Jensen–Sh
 <details>
 <summary>📢 click to expand</summary>
 
+- **2026-06-23** — add FiRe-OPD (White-Box; hard trajectory filtering + soft token reweighting)
 - **2026-06-19** — add d-OPSD, RLCSD, SSOPD (OPSD); TGPO, OPD+ (OPD-RL); Flow-OPD, Decomposed-OPD/VGS (Multimodal); ROPD (Black-Box); BRTS, OPRD (White-Box); Draft-OPD (SpecDec); SDAR (Agent); *The Many Faces of OPD* (Surveys)
 - **2026-06-13** — add TRD (White-Box; trajectory-level refinement) + Li Jiang's OPD reflection blog
 - **2026-06-08** — add EMPO² (OPSD; cross-listed into Agent)
@@ -137,6 +138,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | [OPSD_OnPolicyDistillation](https://github.com/HJSang/OPSD_OnPolicyDistillation) | <img src="https://img.shields.io/github/stars/HJSang/OPSD_OnPolicyDistillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | Meta / LinkedIn | [arXiv 2604.14084](https://arxiv.org/abs/2604.14084) | TIP — Token Importance, shares LinkedIn OPSD repo with PACED |
 | [Hybrid-Policy-Distillation](https://github.com/zwhong714/Hybrid-Policy-Distillation) | <img src="https://img.shields.io/github/stars/zwhong714/Hybrid-Policy-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.04 | zwhong714 | [arXiv 2604.20244](https://arxiv.org/abs/2604.20244) | HPD — Hybrid Policy Distillation; LlamaFactory + verl backends |
 | [BRTS](https://github.com/BWGZK-keke/BRTS) | <img src="https://img.shields.io/github/stars/BWGZK-keke/BRTS?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.05 | JHU (Patel group) | [arXiv 2605.09725](https://arxiv.org/abs/2605.09725) | **BRTS — Best-of-N Teacher Rollout Selection**; augments student-context OPD with a curated teacher-context branch (correctness-first, then student-alignment) to cut single-rollout teacher variance |
+| [FiRe-OPD](https://github.com/YuYingLi0/FiRe-OPD) | <img src="https://img.shields.io/github/stars/YuYingLi0/FiRe-OPD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.06 | THU / HKUST / Meituan (Li et al.) | [arXiv 2606.02684](https://arxiv.org/abs/2606.02684) | **FiRe-OPD — Filter, then Reweight**; decouples *optimization granularity* — **hard** trajectory-level filtering (drop bottom-p% rollouts by teacher log-prob) + **soft** token-level reweighting (teacher-confidence × student-confusion), arguing soft weighting beats hard token selection (cf. TIP); verl-based, with a multi-teacher math+code variant |
 | [trd](https://github.com/louieworth/trd) | <img src="https://img.shields.io/github/stars/louieworth/trd?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.06 | McGill / Mila / UT Austin (Jiang et al.) | [arXiv 2606.08432](https://arxiv.org/abs/2606.08432) | **TRD — Trajectory-Refined Distillation**; diagnoses *prefix failure* of dense per-token OPD, refines student rollouts at trajectory level before distilling; verl-based, also applies to OPSD |
 | [OPRD](https://github.com/ShenzhiYang2000/OPRD) | <img src="https://img.shields.io/github/stars/ShenzhiYang2000/OPRD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.06 | ZJU / Ant Group | [arXiv 2606.06021](https://arxiv.org/abs/2606.06021) | **OPRD — On-Policy Representation Distillation**; first OPD to supervise in *hidden-state space* (aligns teacher/student representations across layers on student rollouts, bypassing the LM head) rather than logits; built on the THUNLP OPD stack |
 
@@ -165,6 +167,7 @@ Methods that turned out to be RL-style on verification have been moved to [OPD-R
 | TRD | Trajectory-level refinement of student rollouts, then distillation | Student (refined) | Trajectory → Token | Reasoning | Argues dense per-token supervision causes *prefix failure*; revises problematic student predictions at the trajectory level before distilling. Generalises to on-policy self-distillation. |
 | BRTS | Token-level KL on student rollouts + auxiliary teacher-context loss | Student + Best-of-N-selected teacher rollouts | Token | Reasoning (AIME/AMC) | Selection waterfall = correctness → student-alignment → ground-truth-guided recovery; the curated teacher trajectory replaces a single high-variance teacher rollout. |
 | OPRD | Layer-wise representation alignment (deterministic; avoids Monte-Carlo KL variance over large vocab) | Student | Hidden-state (per-layer) | Reasoning (competition math) | Lifts distillation from output space into hidden-state space — "bypasses the LM head entirely". Teacher access is white-box (representations rather than logits): the first **feature-based** OPD. |
+| FiRe-OPD | RKL with hard trajectory filtering + soft token reweighting | Student (filtered) | Trajectory (hard) → Token (soft) | Reasoning + Code | Decouples granularity: hard filtering wins at the trajectory level, soft weighting beats hard selection at the token level. Weight `w_t=(1+α·c^T_t)(1+β·c^S_t)` from teacher confidence × student confusion, per-trajectory normalised. +6.25 AIME24 (Qwen3-4B, 30B teacher); multi-teacher math+code variant. |
 
 </details>
 
