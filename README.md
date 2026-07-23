@@ -5,8 +5,6 @@
 
 <div align="center">
 
-[![oosmetrics](https://api.oosmetrics.com/api/v1/badge/achievement/d1bd4be6-a545-4fb5-8c5a-0069d4c0b0d8.svg)](https://oosmetrics.com/repo/thinkwee/AwesomeOPD)
-
 ![Surveys](https://img.shields.io/badge/Surveys_&_Position-22-4E6813?style=for-the-badge)
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-51-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-9-845C40?style=for-the-badge)
