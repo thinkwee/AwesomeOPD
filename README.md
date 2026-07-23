@@ -996,7 +996,13 @@ PRs are very welcome. When adding an entry, please attempt to fill in the techni
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=thinkwee/AwesomeOPD&type=Date)](https://www.star-history.com/#thinkwee/AwesomeOPD&Date)
+<a href="https://www.star-history.com/?repos=thinkwee%2FawesomeOPD&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=thinkwee/awesomeOPD&type=date&theme=dark&legend=top-left&sealed_token=tryb8mkbFZUCliLPGMxRUfcpN0Cq4ZEQLAsLK_rvZiUqr9r_u-EKl9t7Xrz6Qsx4tqd826MaC4SoW162Vz1Fq2GcbjGfUlc5lwTNmy-BWaIAalrUdICBYBTyzQjr6QKgZ98NxoKbS9pUPq41lIwEtG2JH9rLwS6Za_PVYQfaCDVkAHSf3druXYL2zh-4" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=thinkwee/awesomeOPD&type=date&legend=top-left&sealed_token=tryb8mkbFZUCliLPGMxRUfcpN0Cq4ZEQLAsLK_rvZiUqr9r_u-EKl9t7Xrz6Qsx4tqd826MaC4SoW162Vz1Fq2GcbjGfUlc5lwTNmy-BWaIAalrUdICBYBTyzQjr6QKgZ98NxoKbS9pUPq41lIwEtG2JH9rLwS6Za_PVYQfaCDVkAHSf3druXYL2zh-4" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=thinkwee/awesomeOPD&type=date&legend=top-left&sealed_token=tryb8mkbFZUCliLPGMxRUfcpN0Cq4ZEQLAsLK_rvZiUqr9r_u-EKl9t7Xrz6Qsx4tqd826MaC4SoW162Vz1Fq2GcbjGfUlc5lwTNmy-BWaIAalrUdICBYBTyzQjr6QKgZ98NxoKbS9pUPq41lIwEtG2JH9rLwS6Za_PVYQfaCDVkAHSf3druXYL2zh-4" />
+ </picture>
+</a>
 
 ---
 
