@@ -9,7 +9,7 @@
 ![White-Box](https://img.shields.io/badge/White--Box_OPD-73-BFA2DB?style=for-the-badge)
 ![Black-Box](https://img.shields.io/badge/Black--Box_OPD-10-845C40?style=for-the-badge)
 <br>
-![OPSD](https://img.shields.io/badge/OPSD-102-A259FF?style=for-the-badge)
+![OPSD](https://img.shields.io/badge/OPSD-103-A259FF?style=for-the-badge)
 ![Iterative](https://img.shields.io/badge/Iterative_Self--Bootstrapping-3-50C878?style=for-the-badge)
 ![OPD-RL](https://img.shields.io/badge/OPD--RL_Hybrids-60-9B59B6?style=for-the-badge)
 <br>
@@ -369,6 +369,7 @@ Several entries previously listed here turned out on verification to use static 
 
 | Resource | 🌟 Stars | Date | Org | Paper Link | Title / Notes |
 | :----: | :----: | :----: |  :----: | :----: | :---- |
+| [SELF](https://arxiv.org/abs/2610.11384) | [![Paper](https://img.shields.io/badge/📄-paper-845C40?style=for-the-badge)](https://arxiv.org/abs/2610.11384) | 2026.10 | CUHK-Shenzhen / Shanghai AI Laboratory / USTC / ICT CAS / Independent | [arXiv 2610.11384](https://arxiv.org/abs/2610.11384) | **Environmental Feedback Modeling Matters: Rethinking Feedback Treatment in Agentic Hindsight Self-Distillation** — jointly optimizes environmental feedback prediction and feedback-conditioned hindsight self-distillation for interactive language agents. |
 | [OPSD](https://github.com/siyan-zhao/OPSD) | <img src="https://img.shields.io/github/stars/siyan-zhao/OPSD?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.01 | UCLA / Meta FAIR | [arXiv 2601.18734](https://arxiv.org/abs/2601.18734) · [blog](https://siyan-zhao.github.io/blog/2026/opsd/) | OPSD — Self-Distilled Reasoner |
 | [Self-Distillation](https://github.com/idanshen/Self-Distillation) | <img src="https://img.shields.io/github/stars/idanshen/Self-Distillation?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.01 | MIT / ETH | [arXiv 2601.19897](https://arxiv.org/abs/2601.19897) | SDFT-Continual |
 | [mtp-lm](https://github.com/jwkirchenbauer/mtp-lm) | <img src="https://img.shields.io/github/stars/jwkirchenbauer/mtp-lm?style=for-the-badge&logo=github&logoColor=white&labelColor=181717&color=ffd700" alt="Stars"> | 2026.02 | UMD / LLNL | [arXiv 2602.06019](https://arxiv.org/abs/2602.06019) | MTP Self-Distill |
@@ -479,6 +480,7 @@ Several entries previously listed here turned out on verification to use static 
 
 | Method | Privileged Context (Teacher) | Loss / Divergence | Granularity | Domain | Notes |
 | :----: | :----: | :----: | :----: | :----: | :---- |
+| SELF | Realized environmental feedback supplied to an EMA self-teacher | Token-level reverse KL on student-generated action prefixes plus feedback prediction NLL | Token | Multi-turn tool use and code execution (τ-bench Retail, AppWorld) | Collects on-policy actions and feedback; jointly trains the shared policy and feedback predictor without task rewards, outcome labels, or an external teacher. Only the student policy is used at deployment. |
 | OPSD (Self-Distilled Reasoner) | Verified reasoning trace | Per-token RKL with point-wise clipping | Token | Math reasoning | Same-model OPSD; matches GRPO with 1×8 rollouts and 1024 length vs. GRPO's 8×16 / 16k. **The canonical OPSD paper.** Built on TRL's GOLD trainer. |
 | SDFT-Continual (idanshen) | Demo-conditioned same model | RKL on student rollouts vs. demo-conditioned teacher | Token | Continual learning | Self-distillation enables continual learning. |
 | MTP Self-Distill | Multi-token prediction same model | RKL on student rollouts | Token | General | Multi-Token Prediction via Self-Distillation. Author-stated on-policy. |
